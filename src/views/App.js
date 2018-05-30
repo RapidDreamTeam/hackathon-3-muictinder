@@ -16,16 +16,19 @@ import {
 import firebase from 'react-native-firebase'
 
 
-
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' +
-    'Cmd+D or shake for dev menu LOL',
+    'Cmd+D or shake for dev menu ABCDEFG',
   android: 'Double tap R on your keyboard to reload,\n' +
-    'Shake or press menu button for dev menu LOL',
+    'Shake or press menu button for dev menu LOLA',
 });
 
 type Props = {};
 export default class App extends Component<Props> {
+
+  facebookLoginHandler = () => {
+
+  }
   render() {
     return (
       <View style={styles.container}>
