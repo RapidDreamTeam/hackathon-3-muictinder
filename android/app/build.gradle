@@ -142,7 +142,9 @@ dependencies {
         transitive = false
     }
     implementation fileTree(dir: "libs", include: ["*.jar"])
+    //noinspection GradleCompatible
     implementation "com.android.support:appcompat-v7:23.0.1"
+    //noinspection GradleDynamicVersion
     implementation "com.facebook.react:react-native:+"  // From node_modules
 
     // Firebase dependencies
