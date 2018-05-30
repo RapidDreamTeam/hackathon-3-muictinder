@@ -8,11 +8,7 @@ target 'MinderApp' do
   # Pods for MinderApp
   pod 'Firebase/Core'
 
-<<<<<<< HEAD
 
-
-=======
->>>>>>> 4a39334... IOS Works
   target 'MinderAppTests' do
     inherit! :search_paths
     # Pods for testing
