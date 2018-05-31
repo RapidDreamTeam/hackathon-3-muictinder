@@ -13,6 +13,7 @@
     "react-native-deck-swiper": "^1.5.15",
     "react-native-fbsdk": "^0.7.0",
     "react-native-firebase": "^4.2.0",
+    "react-native-swipe-cards": "^0.1.1",
     "react-navigation": "^2.0.4"
   },
   "devDependencies": {

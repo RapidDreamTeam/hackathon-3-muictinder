@@ -1,4 +1,6 @@
 import React from 'react';
+import SwipeCards from './SwipeCards.js'
+
 
 class Home extends React.Component {
     state = {
@@ -6,7 +8,7 @@ class Home extends React.Component {
     }
 
     render() {
-
+        <SwipeCards style={{flex: 1}} />
     }
 }
 
