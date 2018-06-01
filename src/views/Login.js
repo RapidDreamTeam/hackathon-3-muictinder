@@ -31,7 +31,7 @@ class Login extends Component<Props> {
           }
           const credential = firebase.auth.FacebookAuthProvider.credential(data.accessToken);
           const currentUser = await firebase.auth().signInAndRetrieveDataWithCredential(credential);
-          console.info(JSON.stringify(currentUser.user.toJSON()))
+          console.info(currentUser.user.toJSON())
       } catch (e) {
           console.error(e);
       }
