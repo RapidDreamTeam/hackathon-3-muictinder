@@ -41,7 +41,7 @@ class Login extends Component<Props> {
   render() {
     return (
         <Container>
-            <Button onPress={() => console.log("Login Pressed")}>
+            <Button onPress={this.facebookLoginHandler}>
                 <Text>
                     Login With Facebook
                 </Text>
