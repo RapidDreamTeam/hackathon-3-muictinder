@@ -1,11 +1,6 @@
-/**
- * Sample React Native Login
- * https://github.com/facebook/react-native
- * @flow
- */
-
 import React, { Component } from 'react';
 import {StyleSheet} from 'react-native';
+import {facebookLogin} from "../api/authentication/FacebookAuthentication";
 
 import { Container, Button, Text } from 'native-base';
 
@@ -15,6 +10,7 @@ type Props = {};
 class Login extends Component<Props> {
 
   facebookLoginHandler = async () => {
+      const currentUser = await facebookLogin();
   };
 
 
