@@ -1,7 +1,7 @@
 import React from "react";
 import {Text} from 'react-native'
 
-const Test = () => {
+const TestPage = () => {
 
     return (
         <Text>This is a Test</Text>
@@ -10,4 +10,4 @@ const Test = () => {
 };
 
 
-export default Test
+export default TestPage;

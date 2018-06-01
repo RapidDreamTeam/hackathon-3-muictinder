@@ -2,7 +2,7 @@ import React from 'react'
 import { SafeAreaView, createSwitchNavigator } from 'react-navigation';
 import {StyleSheet} from 'react-native'
 
-import { Login, Home } from "./views"
+import { Login, Home, TestPage, Profile } from "./views"
 
 const styles = StyleSheet.create({
     container: {
@@ -26,6 +26,8 @@ class App extends React.Component {
 const AppNavigator = createSwitchNavigator({
     Login, // This screen renders a navigator!
     Home,
+    Test: TestPage,
+    Profile
 }, {
     initialRouteName: 'Login'
 });
