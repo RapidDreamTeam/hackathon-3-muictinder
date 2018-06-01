@@ -15,25 +15,6 @@ type Props = {};
 class Login extends Component<Props> {
 
   facebookLoginHandler = async () => {
-      try {
-          const result = await LoginManager.logInWithReadPermissions(['public_profile', 'email']);
-
-          if (result.isCancelled) {
-              throw new Error('User cancelled request');
-          }
-
-          console.log(`Login success with permissions: ${result.grantedPermissions.toString()}`);
-          const data = await AccessToken.getCurrentAccessToken();
-
-          if (!data) {
-              throw new Error('Something went wrong obtaining the users access token'); // Handle this however fits the flow of your app
-          }
-          const credential = firebase.auth.FacebookAuthProvider.credential(data.accessToken);
-          const currentUser = await firebase.auth().signInAndRetrieveDataWithCredential(credential);
-          console.info(currentUser.user.toJSON())
-      } catch (e) {
-          console.error(e);
-      }
   };
 
 
