@@ -1,8 +1,10 @@
 import React from 'react'
 import { SafeAreaView, createSwitchNavigator } from 'react-navigation';
 import {StyleSheet} from 'react-native'
-
+import ContextProvider from "./context/withContext"
 import { Login, Home, TestPage, Profile } from "./views"
+import PropTypes from "prop-types"
+import _ from "lodash";
 
 const styles = StyleSheet.create({
     container: {
@@ -14,22 +16,43 @@ const styles = StyleSheet.create({
 
 
 class App extends React.Component {
+
+    state = {
+        currentUser: null,
+        loading: false,
+        authenticated: false
+
+    };
+
+    componentWillMount() {
+        this.state.loading = true;
+    }
+
+
+    updateState = (nextState, cb) => {
+        this.setState({
+            ..._.pick(nextState, Object.keys(this.state))
+        }, cb)
+    };
+
     render() {
         return (
-            <SafeAreaView style={styles.container}>
-                <AppNavigator />
-            </SafeAreaView>
+            <ContextProvider state={{context: this.state, setContext: this.updateState}}>
+                <SafeAreaView style={styles.container}>
+                    <AppNavigator />
+                </SafeAreaView>
+            </ContextProvider>
         )
     }
 }
 
 const AppNavigator = createSwitchNavigator({
-    Login, // This screen renders a navigator!
+    Login,
     Home,
     Test: TestPage,
     Profile
 }, {
-    initialRouteName: 'Login'
+    initialRouteName: 'Home'
 });
 
 export default App;
