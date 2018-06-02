@@ -3,6 +3,8 @@ import {View, Text} from 'react-native'
 import Swiper from 'react-native-deck-swiper'
 import {StyleSheet} from "react-native";
 import PropTypes from "prop-types"
+import {withContext} from "../context/withContext";
+import {compose} from "recompose";
 
 
 const SwiperCards = ({cards, onSwipedLeft, onSwipedRight, onSwipedTop, renderCard, children, onSwipedAllCards, onSwiped,...rest}) => {
@@ -101,4 +103,4 @@ const styles = StyleSheet.create({
 });
 
 
-export default Home
+export default compose(withContext)(Home)

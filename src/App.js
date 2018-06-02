@@ -5,6 +5,7 @@ import ContextProvider from "./context/withContext"
 import { Login, Home, TestPage, Profile } from "./views"
 import PropTypes from "prop-types"
 import _ from "lodash";
+import {compose} from "recompose";
 
 const styles = StyleSheet.create({
     container: {
@@ -52,7 +53,7 @@ const AppNavigator = createSwitchNavigator({
     Test: TestPage,
     Profile
 }, {
-    initialRouteName: 'Home'
+    initialRouteName: 'Login'
 });
 
-export default App;
+export default compose()(App);
