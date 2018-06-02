@@ -1,9 +1,3 @@
-/**
- * Sample React Native Login
- * https://github.com/facebook/react-native
- * @flow
- */
-
 import React, { Component } from 'react';
 import {StyleSheet, Dimensions, Text} from 'react-native';
 import {facebookLogin} from "../api/authentication/FacebookAuthentication";

@@ -35,7 +35,6 @@ const Card = ({text}) => (
     </View>
 );
 
-
 class Home extends React.Component {
     state = {
         cards: [
@@ -60,6 +59,11 @@ class Home extends React.Component {
     onSwipeTopHandler = () => {
         console.log("Ohhhh Yehhhhhhhh");
     };
+
+    onSwipeTopHandler = () => {
+
+    }
+
 
     render() {
 
