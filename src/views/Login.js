@@ -1,11 +1,8 @@
 import React, { Component } from 'react';
-import {StyleSheet, Dimensions, Text} from 'react-native';
+import {StyleSheet, Dimensions} from 'react-native';
 import {facebookLogin} from "../api/authentication/FacebookAuthentication";
 import { Button } from 'react-native-elements';
 
-
-const SCREEN_WIDTH = Dimensions.get('window').width
-const SCREEN_HEIGHT = Dimensions.get('window').height
 type Props = {};
 
 class Login extends Component<Props> {
@@ -48,9 +45,6 @@ const styles = StyleSheet.create({
         paddingBottom: 20,
         paddingTop: 20,
         backgroundColor: '#293046',
-        width: SCREEN_WIDTH,
-
-        height: SCREEN_HEIGHT,
         alignItems: 'center',
         justifyContent: 'space-around',
     },
