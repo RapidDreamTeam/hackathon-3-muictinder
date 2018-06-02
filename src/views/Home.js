@@ -73,7 +73,6 @@ class Home extends React.Component {
             <SwiperCards cards={cards} onSwipedLeft={this.onSwipeLeftHandler}
                          onSwipedRight={this.onSwipeRightHandler} onSwipedTop={this.onSwipeTopHandler}
                          renderCard={Card} onSwipedAllCards={this.onSwipedAllCards}>
-                Done
             </SwiperCards>
         )
     }
