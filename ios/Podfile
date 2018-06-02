@@ -6,6 +6,9 @@ target 'MinderApp' do
   # use_frameworks!
 
   # Pods for MinderApp
+  # Add new pods below this line
+  pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
+
   pod 'Firebase/Core'
   pod 'Firebase/Auth'
 

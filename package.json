@@ -8,16 +8,20 @@
   },
   "dependencies": {
     "fbjs": "^0.8.16",
-    "native-base": "^2.4.5",
+    "lodash": "^4.17.10",
     "prop-types": "^15.6.1",
     "react": "16.3.1",
     "react-native": "0.55.4",
     "react-native-deck-swiper": "^1.5.15",
+    "react-native-elements": "^0.19.1",
     "react-native-fbsdk": "^0.7.0",
     "react-native-firebase": "^4.2.0",
-    "react-navigation": "^2.0.4"
+    "react-native-vector-icons": "^4.6.0",
+    "react-navigation": "^2.0.4",
+    "recompose": "^0.27.1"
   },
   "devDependencies": {
+    "@types/react": "^16.3.16",
     "babel-jest": "23.0.1",
     "babel-preset-react-native": "4.0.0",
     "jest": "23.0.1",
