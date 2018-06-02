@@ -1,29 +1,41 @@
 import React, { Component } from 'react';
-import {StyleSheet} from 'react-native';
+import {StyleSheet, Dimensions, Text} from 'react-native';
 import {facebookLogin} from "../api/authentication/FacebookAuthentication";
+import { Button } from 'react-native-elements';
 
-import { Container, Button, Text } from 'native-base';
 
-
+const SCREEN_WIDTH = Dimensions.get('window').width
+const SCREEN_HEIGHT = Dimensions.get('window').height
 type Props = {};
 
 class Login extends Component<Props> {
 
   facebookLoginHandler = async () => {
-      const currentUser = await facebookLogin();
-  };
+      const currentUser = facebookLogin();
 
+      this.props.setContext({
+          currentUser: await currentUser,
+          authenticated: true,
+          loading: false
+      })
+  };
 
 
   render() {
     return (
-        <Container>
-            <Button onPress={this.facebookLoginHandler}>
-                <Text>
-                    Login With Facebook
-                </Text>
+            <Button onPress={this.facebookLoginHandler} title={'Login With Facebook'} rounded={true}
+                    activeOpacity={1}
+                    underlayColor="transparent"
+                    // buttonStyle={{height: 50, width: 250, backgroundColor: 'transparent', borderWidth: 2, borderColor: 'white', borderRadius: 30}}
+                    // containerStyle={{marginVertical: 10}}
+                    buttonStyle={styles.signUpButton}
+                    linearGradientProps={{
+                        colors: ['#FF9800', '#F44336'],
+                        start: [1, 0],
+                        end: [0.2, 0],
+                    }}
+                    titleStyle={{fontWeight: 'bold', color: 'white'}}>
             </Button>
-        </Container>
     );
   }
 }
@@ -31,12 +43,17 @@ class Login extends Component<Props> {
 export default Login;
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
+    container: {
+        flex: 1,
+        paddingBottom: 20,
+        paddingTop: 20,
+        backgroundColor: '#293046',
+        width: SCREEN_WIDTH,
+
+        height: SCREEN_HEIGHT,
+        alignItems: 'center',
+        justifyContent: 'space-around',
+    },
   welcome: {
     fontSize: 20,
     textAlign: 'center',
@@ -47,4 +64,9 @@ const styles = StyleSheet.create({
     color: '#333333',
     marginBottom: 5,
   },
+    signUpButton: {
+        width: 250,
+        borderRadius: 50,
+        height: 45,
+    }
 });
