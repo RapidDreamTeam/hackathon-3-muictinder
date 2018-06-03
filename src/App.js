@@ -5,6 +5,7 @@ import ContextProvider from "./context/withContext"
 import { Login, Home, TestPage, Profile } from "./views"
 import PropTypes from "prop-types"
 import _ from "lodash";
+import {compose} from "recompose";
 
 const styles = StyleSheet.create({
     container: {
@@ -55,7 +56,6 @@ const AppNavigator = createSwitchNavigator({
     initialRouteName: 'Login'
 });
 
-export default App;
-
+export default compose()(App);
 // TODO: Authenticated Routes
 // TODO: Move Routes to separate file

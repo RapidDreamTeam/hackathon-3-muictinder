@@ -1,2 +1,2 @@
-export const matchWith = () => {};
-export const getMyMatch = () => {};
+export const matchWith = async () => {};
+export const getMyMatch = async () => {};
