@@ -1,11 +1,11 @@
-export const createProfileIfNotExist = () => {
+export const createProfileIfNotExist = async () => {
 
-}
+};
 
-export const getMyProfile = () => {
+export const getMyProfile = async () => {
 
-}
+};
 
-export const getProfile = (id) => {
+export const getProfile = async (id) => {
 
-}
+};

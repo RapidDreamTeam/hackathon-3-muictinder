@@ -13,12 +13,16 @@ export const facebookLogin = async (credentials=['public_profile', 'email']) => 
     const data = await AccessToken.getCurrentAccessToken();
 
     if (!data) {
-        throw new Error('Something went wrong obtaining the users access token'); // Handle this however fits the flow of your app
+        throw new Error('Something went wrong obtaining the users access token');
     }
     const credential = firebase.auth.FacebookAuthProvider.credential(data.accessToken);
     return firebase.auth().signInAndRetrieveDataWithCredential(credential);
 };
 
 export const facebookLogout = async () => {
-    
-}
+    return firebase.auth().signOut();
+};
+
+export const onAuthStateChanged = (cb) => {
+    firebase.auth().onAuthStateChanged(cb);
+};

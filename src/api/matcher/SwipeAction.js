@@ -1,3 +1,3 @@
-export const onSwipedLeft = () => {};
-export const onSwipedRight = () => {};
-export const onSwipedTop = () => {};
+export const onSwipedLeft = async () => {};
+export const onSwipedRight = async () => {};
+export const onSwipedTop = async () => {};
