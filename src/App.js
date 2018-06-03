@@ -52,7 +52,10 @@ const AppNavigator = createSwitchNavigator({
     Test: TestPage,
     Profile
 }, {
-    initialRouteName: 'Home'
+    initialRouteName: 'Login'
 });
 
 export default App;
+
+// TODO: Authenticated Routes
+// TODO: Move Routes to separate file
