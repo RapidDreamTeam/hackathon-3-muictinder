@@ -3,9 +3,9 @@ import { SafeAreaView, createSwitchNavigator } from 'react-navigation';
 import {StyleSheet} from 'react-native'
 import ContextProvider from "./context/withContext"
 import { Login, Home, TestPage, Profile } from "./views"
-import PropTypes from "prop-types"
 import _ from "lodash";
 import {compose} from "recompose";
+import Header from "./components/Header";
 
 const styles = StyleSheet.create({
     container: {
@@ -21,7 +21,9 @@ class App extends React.Component {
     state = {
         currentUser: null,
         loading: false,
-        authenticated: false
+        authenticated: false,
+        appBarTitle: "",
+        currentPage: ""
 
     };
 
@@ -40,7 +42,8 @@ class App extends React.Component {
         return (
             <ContextProvider state={{context: this.state, setContext: this.updateState}}>
                 <SafeAreaView style={styles.container}>
-                    <AppNavigator />
+                    {/*<AppNavigator />*/}
+                    <Header />
                 </SafeAreaView>
             </ContextProvider>
         )
