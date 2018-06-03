@@ -11,15 +11,15 @@ const SwiperCards = ({cards, onSwipedLeft, onSwipedRight, onSwipedTop, renderCar
     return (
         <Swiper disableBottomSwipe cards={cards} renderCard={renderCard}
                 onSwipedLeft={onSwipedLeft} onSwipedRight={onSwipedRight}
-                onSwipedTop={onSwipedTop} stackSize={3}
+                onSwipedTop={onSwipedTop} stackSize={2}
                 onSwiped={onSwiped}
-                onSwipedAll={onSwipedAllCards}>
+                onSwipedAll={onSwipedAllCards} >
             {children}
         </Swiper>
     )
 };
 
-PropTypes.SwipeCards = {
+SwiperCards.propTypes = {
     cards: PropTypes.shape({
         text: PropTypes.node.isRequired
     }),
@@ -37,7 +37,17 @@ const Card = ({text}) => (
     </View>
 );
 
+Card.propTypes = {
+    text: PropTypes.node.isRequired
+};
+
 class Home extends React.Component {
+
+    static navigationOptions = {
+        title: 'Minder',
+        currentPage: "HOME"
+    };
+
     state = {
         cards: [
             'DO', 'MORE', 'OF', 'WHAT', 'MAKES', 'YOU', 'HAPPY'

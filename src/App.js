@@ -3,14 +3,13 @@ import { SafeAreaView, createSwitchNavigator } from 'react-navigation';
 import {StyleSheet} from 'react-native'
 import ContextProvider from "./context/withContext"
 import { Login, Home, TestPage, Profile } from "./views"
-import PropTypes from "prop-types"
 import _ from "lodash";
 import {compose} from "recompose";
+import Routes from "./routes";
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#ecf0f1',
         justifyContent: 'space-between',
     }
 });
@@ -40,20 +39,14 @@ class App extends React.Component {
         return (
             <ContextProvider state={{context: this.state, setContext: this.updateState}}>
                 <SafeAreaView style={styles.container}>
-                    <AppNavigator />
+                    <Routes />
                 </SafeAreaView>
             </ContextProvider>
         )
     }
 }
 
-const AppNavigator = createSwitchNavigator({
-    Login,
-    Home,
-    Test: TestPage,
-    Profile
-}, {
-    initialRouteName: 'Login'
-});
-
 export default compose()(App);
+
+// TODO: Authenticated Routes
+// TODO: Move Routes to separate file
