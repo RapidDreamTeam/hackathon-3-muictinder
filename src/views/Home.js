@@ -4,7 +4,7 @@ import Swiper from 'react-native-deck-swiper'
 import {StyleSheet} from "react-native";
 import PropTypes from "prop-types"
 import {withContext} from "../context/withContext";
-import {compose} from "recompose";
+import { compose } from "recompose";
 
 
 const SwiperCards = ({cards, onSwipedLeft, onSwipedRight, onSwipedTop, renderCard, children, onSwipedAllCards, onSwiped,...rest}) => {
@@ -17,7 +17,7 @@ const SwiperCards = ({cards, onSwipedLeft, onSwipedRight, onSwipedTop, renderCar
             {children}
         </Swiper>
     )
-}
+};
 
 PropTypes.SwipeCards = {
     cards: PropTypes.shape({
@@ -62,15 +62,9 @@ class Home extends React.Component {
         console.log("Ohhhh Yehhhhhhhh");
     };
 
-    onSwipeTopHandler = () => {
-
-    }
-
 
     render() {
-
         const { cards } = this.state;
-
         return (
             <SwiperCards cards={cards} onSwipedLeft={this.onSwipeLeftHandler}
                          onSwipedRight={this.onSwipeRightHandler} onSwipedTop={this.onSwipeTopHandler}
