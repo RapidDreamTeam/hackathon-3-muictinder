@@ -10,6 +10,11 @@ type Props = {};
 
 class Login extends Component<Props> {
 
+    static navigationOptions = {
+        title: 'Login',
+        currentPage: "LOGIN"
+    };
+
   facebookLoginHandler = async () => {
       try {
           const currentUser = facebookLogin();
@@ -28,7 +33,6 @@ class Login extends Component<Props> {
 
       }
   };
-
 
   render() {
     return (
