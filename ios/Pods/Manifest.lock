@@ -1,13 +1,16 @@
 PODS:
-  - Firebase/Auth (5.0.1):
+  - Firebase/Auth (5.1.0):
     - Firebase/CoreOnly
     - FirebaseAuth (= 5.0.0)
-  - Firebase/Core (5.0.1):
+  - Firebase/Core (5.1.0):
     - Firebase/CoreOnly
-    - FirebaseAnalytics (= 5.0.0)
-  - Firebase/CoreOnly (5.0.1):
-    - FirebaseCore (= 5.0.1)
-  - FirebaseAnalytics (5.0.0):
+    - FirebaseAnalytics (= 5.0.1)
+  - Firebase/CoreOnly (5.1.0):
+    - FirebaseCore (= 5.0.2)
+  - Firebase/Database (5.1.0):
+    - Firebase/CoreOnly
+    - FirebaseDatabase (= 5.0.1)
+  - FirebaseAnalytics (5.0.1):
     - FirebaseCore (~> 5.0)
     - FirebaseInstanceID (~> 3.0)
     - "GoogleToolboxForMac/NSData+zlib (~> 2.1)"
@@ -15,23 +18,34 @@ PODS:
   - FirebaseAuth (5.0.0):
     - FirebaseCore (~> 5.0)
     - GTMSessionFetcher/Core (~> 1.1)
-  - FirebaseCore (5.0.1):
+  - FirebaseCore (5.0.2):
     - "GoogleToolboxForMac/NSData+zlib (~> 2.1)"
+  - FirebaseDatabase (5.0.1):
+    - FirebaseCore (~> 5.0)
+    - leveldb-library (~> 1.18)
   - FirebaseInstanceID (3.0.0):
     - FirebaseCore (~> 5.0)
   - GoogleToolboxForMac/Defines (2.1.4)
   - "GoogleToolboxForMac/NSData+zlib (2.1.4)":
     - GoogleToolboxForMac/Defines (= 2.1.4)
   - GTMSessionFetcher/Core (1.1.15)
+  - leveldb-library (1.20)
   - nanopb (0.3.8):
     - nanopb/decode (= 0.3.8)
     - nanopb/encode (= 0.3.8)
   - nanopb/decode (0.3.8)
   - nanopb/encode (0.3.8)
+  - React (0.11.0):
+    - React/Core (= 0.11.0)
+  - React/Core (0.11.0)
+  - RNVectorIcons (4.6.0):
+    - React
 
 DEPENDENCIES:
   - Firebase/Auth
   - Firebase/Core
+  - Firebase/Database
+  - RNVectorIcons (from `../node_modules/react-native-vector-icons`)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -39,21 +53,32 @@ SPEC REPOS:
     - FirebaseAnalytics
     - FirebaseAuth
     - FirebaseCore
+    - FirebaseDatabase
     - FirebaseInstanceID
     - GoogleToolboxForMac
     - GTMSessionFetcher
+    - leveldb-library
     - nanopb
+    - React
+
+EXTERNAL SOURCES:
+  RNVectorIcons:
+    :path: "../node_modules/react-native-vector-icons"
 
 SPEC CHECKSUMS:
-  Firebase: d6861c2059d8c32d1e6dd8932e22ada346d90a3a
-  FirebaseAnalytics: 19812b49fa5f283dd6b23edf8a14b5d477029ab8
+  Firebase: e08fb0795f35707aeb1d8a715c731c45bdf6fd56
+  FirebaseAnalytics: b3628aea54c50464c32c393fb2ea032566e7ecc2
   FirebaseAuth: acbeef02fe7c3a26624e309849f3fe30c84115af
-  FirebaseCore: cafc814b2d84fc8733f09e653041cc2165332ad7
+  FirebaseCore: b81044df1044c0857a0737c6324678b72d4f7f00
+  FirebaseDatabase: 482bad9c2abd422bb2321194fb8c937e67426a89
   FirebaseInstanceID: 83e0040351565df711a5db3d8ebe5ea21aca998a
   GoogleToolboxForMac: 91c824d21e85b31c2aae9bb011c5027c9b4e738f
   GTMSessionFetcher: 5fa5b80fd20e439ef5f545fb2cb3ca6c6714caa2
+  leveldb-library: 08cba283675b7ed2d99629a4bc5fd052cd2bb6a5
   nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
+  React: ab1a2e21deb34965c38328d5ec40cc7d12c6050a
+  RNVectorIcons: c0dbfbf6068fefa240c37b0f71bd03b45dddac44
 
-PODFILE CHECKSUM: 9e243f338bea343dea7d68fc2d7974d419fa18f0
+PODFILE CHECKSUM: c01afd457c35afcd9a236c6eda6c79b7b0abb560
 
 COCOAPODS: 1.5.3
