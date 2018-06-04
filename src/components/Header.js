@@ -1,21 +1,15 @@
 import React from 'react'
-import {Header} from 'react-native-elements'
 import compose from 'recompose/compose'
 import {withContext} from "../context/withContext";
+import { withNavigation } from 'react-navigation';
+
 
 class HeaderBar extends React.Component {
 
     render() {
-        const {children} = this.props;
-        return (
-            <Header
-                leftComponent={{ icon: "user-o", type: "font-awesome", color: "white" }}
-                centerComponent={{ text: 'MY TITLE', style: { color: "white" } }}
-                rightComponent={{ icon: 'home', color: '#fff', type: "font-awesome" }}>
-                { children }
-            </Header>
-        )
+        const {children: Children, context: {appBarTitle}, ...rest} = this.props;
+        return (null)
     }
 }
 
-export default compose(withContext)(HeaderBar);
+export default compose(withContext, withNavigation)(HeaderBar);

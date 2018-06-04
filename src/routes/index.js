@@ -2,7 +2,7 @@ import { Login, Home, TestPage, Profile } from "../views"
 import AuthenticationLoading from './AuthenticationLoading';
 import {createSwitchNavigator, createStackNavigator} from 'react-navigation'
 
-const AuthenticatedRoute  = createSwitchNavigator({
+const AuthenticatedRoute  = createStackNavigator({
     Home, Profile
 });
 
@@ -18,9 +18,6 @@ export default createSwitchNavigator(
     },
     {
         initialRouteName: 'AuthenticationLoading',
+        headerMode: 'none'
     }
 )
-
-export const ACTION = {
-
-};

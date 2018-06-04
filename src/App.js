@@ -1,17 +1,21 @@
 import React from 'react'
-import { SafeAreaView, createSwitchNavigator } from 'react-navigation';
-import {StyleSheet} from 'react-native'
+import {SafeAreaView} from 'react-navigation';
+import {StyleSheet, View} from 'react-native'
 import ContextProvider from "./context/withContext"
-import { Login, Home, TestPage, Profile } from "./views"
+import {Container} from 'native-base';
 import _ from "lodash";
 import {compose} from "recompose";
 import Routes from "./routes";
-import Header from "./components/Header";
 
 const styles = StyleSheet.create({
-    container: {
+    safeArea: {
         flex: 1,
         justifyContent: 'space-between',
+    },
+    container: {
+        paddingLeft: '3%',
+        paddingRight: '3%',
+        backgroundColor: "white"
     }
 });
 
@@ -24,7 +28,6 @@ class App extends React.Component {
         authenticated: false,
         appBarTitle: "",
         currentPage: ""
-
     };
 
     componentWillMount() {
@@ -41,8 +44,10 @@ class App extends React.Component {
     render() {
         return (
             <ContextProvider state={{context: this.state, setContext: this.updateState}}>
-                <SafeAreaView style={styles.container}>
-                    <Routes />
+                <SafeAreaView style={styles.safeArea}>
+                    <Container style={styles.container}>
+                        <Routes />
+                    </Container>
                 </SafeAreaView>
             </ContextProvider>
         )
@@ -50,6 +55,3 @@ class App extends React.Component {
 }
 
 export default compose()(App);
-
-// TODO: Authenticated Routes
-// TODO: Move Routes to separate file
