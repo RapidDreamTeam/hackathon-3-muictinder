@@ -5,7 +5,7 @@ import {StyleSheet} from "react-native";
 import PropTypes from "prop-types"
 import {withContext} from "../context/withContext";
 import { compose } from "recompose";
-import {Button} from 'native-base'
+import {Button, Container} from 'native-base'
 import {facebookLogout} from '../api/authentication/FacebookAuthentication'
 
 
@@ -87,18 +87,17 @@ class Home extends React.Component {
 
     render() {
         const { cards } = this.state;
-        const {navigation: {state: params}} = this.props
 
-        /*<SwiperCards cards={cards} onSwipedLeft={this.onSwipeLeftHandler}*/
-        /*onSwipedRight={this.onSwipeRightHandler} onSwipedTop={this.onSwipeTopHandler}*/
-        /*renderCard={Card} onSwipedAllCards={this.onSwipedAllCards}>*/
-        /*</SwiperCards>*/
         return (
-
-
-        <Button block onPress={this.onLogout} >
-            <Text>Logout</Text>
-        </Button>
+            <Container >
+                <SwiperCards cards={cards} onSwipedLeft={this.onSwipeLeftHandler}
+                             onSwipedRight={this.onSwipeRightHandler} onSwipedTop={this.onSwipeTopHandler}
+                             renderCard={Card} onSwipedAllCards={this.onSwipedAllCards}>
+                </SwiperCards>
+                <Button block onPress={this.onLogout} >
+                    <Text>Logout</Text>
+                </Button>
+            </Container>
         )
     }
 }

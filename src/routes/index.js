@@ -18,6 +18,5 @@ export default createSwitchNavigator(
     },
     {
         initialRouteName: 'AuthenticationLoading',
-        headerMode: 'none'
     }
 )
