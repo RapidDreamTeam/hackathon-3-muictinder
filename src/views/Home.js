@@ -35,17 +35,16 @@ SwiperCards.propTypes = {
 };
 
 
-const Card = ({text}, idx) => {
-    console.log(text);
+const Card = ({name, photo}, idx) => {
     return (<View style={styles.card}>
     <Image
         style={{width: 400, height: 400}}
-        source={{uri: 'https://platform-lookaside.fbsbx.com/platform/profilepic/?asid=2144942035521857&height=200&width=200&ext=1528387942&hash=AeTxfL1kiOGhNJi2'}}
+        source={{uri: photo}}
         />
         {/*<Image*/}
         {/*style={{width: 100, height: 100}}*/}
         {/*source={{uri: "https://www.jqueryscript.net/images/Simplest-Responsive-jQuery-Image-Lightbox-Plugin-simple-lightbox.jpg"}}/>*/}
-        <Text style={styles.text}>{text} - {idx}</Text>
+        <Text style={styles.text}>{name} - {idx}</Text>
     </View>);
 };
 
@@ -65,7 +64,7 @@ class Home extends React.Component {
         };
     };
     componentDidMount() {
-        fetchCards(10).then(() => console.log('done')).catch(e => console.log(e.msg));
+        fetchCards(10).then((d) => console.log('done', this.setState({cards: d}))).catch(e => console.log(e.msg));
     }
 
     // static navigationOptions = {
@@ -74,9 +73,10 @@ class Home extends React.Component {
     // };
 
     state = {
-        cards: [
-            'DO', 'MORE', 'OF', 'WHAT', 'MAKES', 'YOU', 'HAPPY'
-        ].map(ele => ({ text: ele })) ,
+        cards: [],
+        // cards: [
+        //     'DO', 'MORE', 'OF', 'WHAT', 'MAKES', 'YOU', 'HAPPY'
+        // ].map(ele => ({ text: ele })) ,
         swipedAllCards: false
     };
 
