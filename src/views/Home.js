@@ -5,6 +5,8 @@ import {StyleSheet} from "react-native";
 import PropTypes from "prop-types"
 import {withContext} from "../context/withContext";
 import { compose } from "recompose";
+import {Button, Container} from 'native-base'
+import {facebookLogout} from '../api/authentication/FacebookAuthentication'
 
 
 const SwiperCards = ({cards, onSwipedLeft, onSwipedRight, onSwipedTop, renderCard, children, onSwipedAllCards, onSwiped,...rest}) => {
@@ -43,9 +45,14 @@ Card.propTypes = {
 
 class Home extends React.Component {
 
-    static navigationOptions = {
-        title: 'Minder',
-        currentPage: "HOME"
+    // static navigationOptions = {
+    //     title: 'Minder',
+    // };
+
+    static navigationOptions = ({ navigation }) => {
+        return {
+            title: "Minder",
+        };
     };
 
     state = {
@@ -54,6 +61,11 @@ class Home extends React.Component {
         ].map(ele => ({ text: ele })) ,
         swipedAllCards: false
     };
+
+    onLogout = () => {
+        facebookLogout()
+        console.log()
+    }
 
     onSwipedAllCards = () => {
         console.log("No more card")
@@ -75,11 +87,17 @@ class Home extends React.Component {
 
     render() {
         const { cards } = this.state;
+
         return (
-            <SwiperCards cards={cards} onSwipedLeft={this.onSwipeLeftHandler}
-                         onSwipedRight={this.onSwipeRightHandler} onSwipedTop={this.onSwipeTopHandler}
-                         renderCard={Card} onSwipedAllCards={this.onSwipedAllCards}>
-            </SwiperCards>
+            <Container >
+                <SwiperCards cards={cards} onSwipedLeft={this.onSwipeLeftHandler}
+                             onSwipedRight={this.onSwipeRightHandler} onSwipedTop={this.onSwipeTopHandler}
+                             renderCard={Card} onSwipedAllCards={this.onSwipedAllCards}>
+                </SwiperCards>
+                <Button block onPress={this.onLogout} >
+                    <Text>Logout</Text>
+                </Button>
+            </Container>
         )
     }
 }
