@@ -11,11 +11,6 @@ const styles = StyleSheet.create({
     safeArea: {
         flex: 1,
         justifyContent: 'space-between',
-    },
-    container: {
-        paddingLeft: '3%',
-        paddingRight: '3%',
-        backgroundColor: "white"
     }
 });
 
@@ -45,9 +40,7 @@ class App extends React.Component {
         return (
             <ContextProvider state={{context: this.state, setContext: this.updateState}}>
                 <SafeAreaView style={styles.safeArea}>
-                    <Container style={styles.container}>
-                        <Routes />
-                    </Container>
+                    <Routes />
                 </SafeAreaView>
             </ContextProvider>
         )
