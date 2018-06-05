@@ -84,17 +84,13 @@ class Home extends React.Component {
         console.log("No more card")
     };
 
-
-
-
-
     render() {
         const { cards } = this.state;
 
         return (
             <Container >
-                <SwiperCards cards={cards} onSwipedLeft={onSwipedLeft}
-                             onSwipedRight={onSwipedRight} onSwipedTop={onSwipedTop}
+                <SwiperCards cards={cards} onSwipedLeft={onSwipedLeft(cards)}
+                             onSwipedRight={onSwipedRight(cards)} onSwipedTop={onSwipedTop(cards)}
                              renderCard={Card} onSwipedAllCards={this.onSwipedAllCards}>
                 </SwiperCards>
             </Container>
