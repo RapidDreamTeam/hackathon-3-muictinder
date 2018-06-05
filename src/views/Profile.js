@@ -27,7 +27,9 @@ class Profile extends React.Component {
                     This is Profile
                 </Text>
 
-                <Button onPress={this.logout}>Logout</Button>
+                <Button block onPress={this.logout}>
+                    <Text>Logout</Text>
+                </Button>
             </Container>
         );
     }

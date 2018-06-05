@@ -31,7 +31,7 @@ const AuthenticatedRoute  = createBottomTabNavigator(
                             active={ routeName === "Profile" }
                             onPress={() => props.navigation.navigate("Profile")}
                         >
-                            <Icon name="bowtie" />
+                            {/*<Icon name="bowtie" />*/}
                             <Text>Profile</Text>
                         </Button>
                         <Button
