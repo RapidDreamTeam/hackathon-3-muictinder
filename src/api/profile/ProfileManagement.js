@@ -14,6 +14,7 @@ export const createProfileIfNotExist = (currentUser) => {
         console.log("inside transaction")
 
         return {
+            ...data,
             photo: photoURL,
             firstname: first_name,
             lastname: last_name,
