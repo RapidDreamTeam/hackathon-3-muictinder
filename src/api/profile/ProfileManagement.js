@@ -6,25 +6,22 @@ export const createProfileIfNotExist = (currentUser) => {
 
     const userRef = firebase.database().ref(`users/${uid}`);
     userRef.transaction(currentData => {
-        const data = {};
-        if (currentData === null){
-            data.matches = [];
-        }
-
-        console.log("inside transaction")
-
-        return {
-            ...data,
-            photo: photoURL,
-            firstname: first_name,
-            lastname: last_name,
-            displayname: display_name
+        if (currentData !== null){
+            return {
+                photo: photoURL,
+                firstname: first_name,
+                lastname: last_name,
+                displayname: display_name
+            }
         }
     })
 };
 
-export const getMyProfile = async (user) => {
+export const getMyProfile = async (currentUser) => {
+    const {user: {uid}} = currentUser;
+    const userRef = firebase.database().ref(`users/${uid}`);
 
+    userRef.
 };
 
 export const getProfile = async (id) => {
