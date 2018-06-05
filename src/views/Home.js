@@ -62,11 +62,6 @@ class Home extends React.Component {
         swipedAllCards: false
     };
 
-    onLogout = () => {
-        facebookLogout()
-        console.log()
-    }
-
     onSwipedAllCards = () => {
         console.log("No more card")
     };
@@ -89,14 +84,11 @@ class Home extends React.Component {
         const { cards } = this.state;
 
         return (
-            <Container >
+            <Container>
                 <SwiperCards cards={cards} onSwipedLeft={this.onSwipeLeftHandler}
                              onSwipedRight={this.onSwipeRightHandler} onSwipedTop={this.onSwipeTopHandler}
                              renderCard={Card} onSwipedAllCards={this.onSwipedAllCards}>
                 </SwiperCards>
-                <Button block onPress={this.onLogout} >
-                    <Text>Logout</Text>
-                </Button>
             </Container>
         )
     }

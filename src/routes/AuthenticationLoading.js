@@ -26,11 +26,11 @@ class AuthenticationLoading extends React.Component {
     };
 
     authenticated = () => {
-        this.props.navigation.navigate("Home")
+        this.props.navigation.navigate("AuthenticatedRoute")
     };
 
     unauthenticated = () => {
-        this.props.navigation.navigate("Login")
+        this.props.navigation.navigate("UnauthenticatedRoute")
     };
 
     render() {
