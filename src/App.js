@@ -31,9 +31,10 @@ class App extends React.Component {
 
 
     updateState = (nextState, cb) => {
+        console.log("update next state", ..._.pick(nextState, Object.keys(this.state)));
         this.setState({
             ..._.pick(nextState, Object.keys(this.state))
-        }, cb)
+        }, cb);
     };
 
     render() {

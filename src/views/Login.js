@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {StyleSheet} from 'react-native';
-import {facebookLogin} from "../api/authentication/FacebookAuthentication";
+import {facebookLogin, facebookLogout} from "../api/authentication/FacebookAuthentication";
 import {createProfileIfNotExist } from "../api/profile/ProfileManagement"
 import compose from 'recompose/compose'
 import {withContext} from "../context/withContext";
@@ -25,15 +25,15 @@ class Login extends Component<Props> {
               authenticated: true,
               loading: false
           }, () => {
-              // console.log("b", currentUser)
-              createProfileIfNotExist(currentUser)
+              console.log("b", currentUser);
+              createProfileIfNotExist(currentUser);
           })
       } catch (e) {
           this.props.setContext({
               currentUser: null,
               authenticated: false,
               loading: false
-          })
+          }, facebookLogout)
 
       }
   };

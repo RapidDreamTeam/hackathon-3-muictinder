@@ -2,8 +2,8 @@ import { AccessToken, LoginManager } from 'react-native-fbsdk';
 import firebase from 'react-native-firebase'
 
 
-export const facebookLogin = async (credentials=['public_profile', 'email']) => {
-    const result = await LoginManager.logInWithReadPermissions(credentials);
+export const facebookLogin = async (permissions=['public_profile', 'email']) => {
+    const result = await LoginManager.logInWithReadPermissions(permissions);
 
     if (result.isCancelled) {
         throw new Error('User cancelled request');

@@ -9,7 +9,12 @@ class MyMatch extends React.Component {
 
     };
 
+
+
     render() {
+        if  (this.props.context.currentUser === null ){
+            return (null)
+        }
         return (
             <Container>
                 <Text>

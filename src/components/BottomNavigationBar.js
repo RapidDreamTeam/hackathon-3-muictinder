@@ -1,7 +1,6 @@
 import {
     Button,
     Text,
-    Icon,
     Footer,
     FooterTab
 } from "native-base";
