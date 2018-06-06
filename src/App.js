@@ -2,7 +2,6 @@ import React from 'react'
 import {SafeAreaView} from 'react-navigation';
 import {StyleSheet, View} from 'react-native'
 import ContextProvider from "./context/withContext"
-import {Container} from 'native-base';
 import _ from "lodash";
 import {compose} from "recompose";
 import Routes from "./routes";
