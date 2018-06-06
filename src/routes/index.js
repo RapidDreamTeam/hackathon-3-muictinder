@@ -7,10 +7,10 @@ import {createSwitchNavigator, createStackNavigator, createBottomTabNavigator} f
 
 const AuthenticatedRoute  = createBottomTabNavigator(
     {
-        Home, Profile, Match
+        Home, Profile , Match
     },
     {
-        initialRoute: "Home",
+        initialRouteName: "Home",
         tabBarPosition: "bottom",
         tabBarComponent: props => {
             return (

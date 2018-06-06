@@ -83,6 +83,10 @@ class Home extends React.Component {
     render() {
         const { cards } = this.state;
 
+        if  (this.props.context.currentUser === null ){
+            return (null)
+        }
+
         return (
             <Container>
                 <SwiperCards cards={cards} onSwipedLeft={this.onSwipeLeftHandler}
