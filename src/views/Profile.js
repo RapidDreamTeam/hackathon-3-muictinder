@@ -3,7 +3,20 @@ import {StyleSheet, Dimensions} from 'react-native'
 import {facebookLogout} from "../api/authentication/FacebookAuthentication";
 import compose from 'recompose/compose'
 import {withContext} from "../context/withContext";
-import {Container, Text, Button, Header, Thumbnail, Form, Item, Label, Input} from 'native-base'
+import {
+    Container,
+    Text,
+    Button,
+    Header,
+    Thumbnail,
+    Form,
+    Item,
+    Label,
+    Input,
+    Content,
+    Separator,
+    ListItem
+} from 'native-base'
 import {updateUserInfo} from '../api/profile/ProfileManagement';
 import Modal from 'react-native-modal';
 const {height} = Dimensions.get('window');
@@ -101,9 +114,33 @@ class Profile extends React.Component {
 
                     <Container style={styles.bioContainer}>
                         <Thumbnail circular style={{marginBottom: "8%" }} large source={{uri: photo}} />
-                        <Text>{`${displayname}`}</Text>
-
+                        <Text>{`${displayname || "-"}`}</Text>
                     </Container>
+
+                    <Content>
+                        <Separator>
+                            <Text>First Name</Text>
+                        </Separator>
+
+                        <ListItem >
+                            <Text>{firstname || "-"}</Text>
+                        </ListItem>
+
+                        <Separator>
+                            <Text>Last Name</Text>
+                        </Separator>
+
+                        <ListItem>
+                            <Text>{lastname || "-"}</Text>
+                        </ListItem>
+
+                        <Separator>
+                            <Text>Bio</Text>
+                        </Separator>
+                        <ListItem>
+                            <Text>{bio || "-"}</Text>
+                        </ListItem>
+                    </Content>
 
                     <ClickableButton onPress={() => this.setState({modalVisible: true})}>
                         Edit Profile
@@ -112,13 +149,7 @@ class Profile extends React.Component {
                         Logout
                     </ClickableButton>
                 </Container>
-
-
-
-
-
-
-                <EditModal open={modalVisible} onSave={updateUserInfo(uid)} onClose={() => this.setState({modalVisible: false})} data={{firstname, lastname, bio, displayname}}/>
+                <EditModal open={modalVisible} onSave={(d) => () => updateUserInfo(uid)(d)} onClose={() => this.setState({modalVisible: false})} data={{firstname, lastname, bio, displayname}}/>
             </Container>
         );
     }

@@ -13,7 +13,7 @@ class AuthenticationLoading extends React.Component {
     };
 
     componentDidMount() {
-        const unsubscribe = onAuthStateChanged((user) => {
+        onAuthStateChanged((user) => {
             if (!!user){
 
                 // Concurrency bug, if slow internet, Maybe
@@ -35,12 +35,10 @@ class AuthenticationLoading extends React.Component {
                     });
                 }
                 this.unauthenticated();
-
             }
             this.setState({
                 loading: false
             });
-            unsubscribe();
         })
     };
 

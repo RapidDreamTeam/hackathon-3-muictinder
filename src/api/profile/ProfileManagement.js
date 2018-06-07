@@ -45,9 +45,11 @@ export const updateUserInfo = (uid) => (payload) => {
     const profileField = ["firstname", "lastname", "displayname", "bio"];
     const nextState = _.pick(payload, profileField);
 
-    console.log(uid, payload, nextState);
+    console.log("profile updated",uid, payload, nextState);
 
-    // firebase.database().ref(`users/${uid}`).update(nextState);
+    firebase.database().ref(`users/${uid}`).update(nextState);
+
+
 };
 
 export const onProfileChange = (uid, cb, cbb) => {
