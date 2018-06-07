@@ -3,18 +3,25 @@ import {ActivityIndicator} from 'react-native'
 import { onAuthStateChanged } from '../api/authentication/FacebookAuthentication'
 import { onProfileChange, offProfileChange } from '../api/profile/ProfileManagement'
 import { withContext } from "../context/withContext";
+import {facebookLogout} from "../api/authentication/FacebookAuthentication";
 import compose from 'recompose/compose'
 
 class AuthenticationLoading extends React.Component {
+
+    state = {
+        loading: true
+    };
 
     componentDidMount() {
         onAuthStateChanged((user) => {
             if (!!user){
 
+                // Concurrency bug, if slow internet, Maybe
                 onProfileChange(user.uid, (snapshot) => {
-
                     this.props.setContext({
-                        currentUser: snapshot.val()
+                        currentUser: {...snapshot.val(), uid: snapshot.key},
+                        authenticated: true,
+                        loading: false,
                     }, () => console.log("profile updated", this.props.context));
                 }, this.authenticated);
             } else {
@@ -24,13 +31,14 @@ class AuthenticationLoading extends React.Component {
                             authenticated: false,
                             loading: false,
                             currentUser: null
-
                         })
                     });
                 }
                 this.unauthenticated();
-
             }
+            this.setState({
+                loading: false
+            });
         })
     };
 
@@ -39,7 +47,8 @@ class AuthenticationLoading extends React.Component {
     };
 
     unauthenticated = () => {
-        this.props.navigation.navigate("UnauthenticatedRoute")
+        this.props.navigation.navigate("UnauthenticatedRoute");
+        facebookLogout();
     };
 
     render() {

@@ -5,8 +5,7 @@ import {StyleSheet} from "react-native";
 import PropTypes from "prop-types"
 import {withContext} from "../context/withContext";
 import { compose } from "recompose";
-import {Button, Container} from 'native-base'
-import {facebookLogout} from '../api/authentication/FacebookAuthentication'
+import {Container} from 'native-base'
 import { onSwipedLeft, onSwipedRight, onSwipedTop } from "../api/matcher/SwipeAction";
 import {fetchCards} from "../api/matcher/Cards";
 
@@ -87,7 +86,7 @@ class Home extends React.Component {
 
     render() {
         const { cards } = this.state;
-
+        console.log("user", this.props.context);
         if  (this.props.context.currentUser === null ){
             return (null)
         }

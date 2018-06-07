@@ -24,5 +24,5 @@ export const facebookLogout = async () => {
 };
 
 export const onAuthStateChanged = (cb) => {
-    firebase.auth().onAuthStateChanged(cb);
+    return firebase.auth().onAuthStateChanged(cb);
 };
