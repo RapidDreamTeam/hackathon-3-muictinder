@@ -1,32 +1,52 @@
 import firebase from 'react-native-firebase';
+import _ from 'lodash';
 
 export const fetchCards = async () => {
-  // get i cards from db
 
   const uid = firebase.auth().currentUser.uid;
-  return firebase.database().ref('users').once('value').then( (snapshot) => {
-    // console.log(snapshot.val());
+  const matchesRef = firebase.database().ref('');
+  return firebase.database().ref('').once('value').then( (snapshot) => {
+    console.log(snapshot.val());
+    const users = snapshot.val()['users'];
+    const matches = snapshot.val()['matches'] || {};
+    console.log('these', matches, users);
     let cards = [];
     let filter = [];
-    snapshot.forEach( e => {
-      //console.log('user: ', e.val());
-      if (e.key !== uid)
-        cards = cards.concat({ key: e.key, name: e.val().displayname, photo: e.val().photo });
+    for (const k in users) {
+      if (!users.hasOwnProperty(k))
+        continue;
+      const e = users[k];
+      console.log(e);
+      console.log('user: ', k);
+      if (k !== uid)
+        cards = cards.concat({ key: k, name: e.displayname, photo: e.photo });
       else {
-        const user = e.val();
-        for (const key in user.swipeRight) {
-          console.log(user.swipeRight[key]);
-          filter = filter.concat(user.swipeRight[key]);
-        }
-        for (const key in user.instantMatch) {
-          console.log(user.instantMatch[key]);
-          filter = filter.concat(user.instantMatch[key]);
+        console.log('else');
+        if (matches.hasOwnProperty(k)) {
+          console.log(matches[k]);
+          if (matches[k].hasOwnProperty('swipeRight')) {
+            for (const key in matches[k]['swipeRight']) {
+              console.log('right', matches[k]['swipeRight'][key]);
+              filter = filter.concat(matches[k]['swipeRight'][key]);
+            }
+          }
+          if (matches[k].hasOwnProperty('matched')) {
+            for (const key in matches[k]['matched']) {
+              console.log('matched', matches[k]['swipeRight'][key]);
+              filter = filter.concat(matches[k]['matched'][key]);
+            }
+          }
+        } else {
+          console.log('nop');
         }
       }
-    });
-    // console.log(cards);
+    }
+    console.log('cards', cards, filter);
     const filterSet = new Set(filter);
-    cards.filter( (e) => {filterSet.has(e.key)});
+
+    // const tmp = cards.filter( (e) => {console.log(e, e.key, filterSet.has(e.key)); return filterSet.has(e.key);});
+    _.remove(cards, (e) => filterSet.has(e.key));
+    console.log('c', cards);
     return cards;
   })
 };

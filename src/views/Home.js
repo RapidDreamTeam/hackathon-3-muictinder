@@ -64,7 +64,7 @@ class Home extends React.Component {
         };
     };
     componentDidMount() {
-        fetchCards(10).then((d) => console.log('done', this.setState({cards: d}))).catch(e => console.log(e.msg));
+        fetchCards().then((d) => console.log('done', this.setState({cards: d}))).catch(e => console.log(e.msg));
     }
 
     // static navigationOptions = {
@@ -81,7 +81,8 @@ class Home extends React.Component {
     };
 
     onSwipedAllCards = () => {
-        console.log("No more card")
+        console.log("No more card");
+        fetchCards().then((d) => console.log('done', this.setState({cards: d}))).catch(e => console.log(e.msg));
     };
 
     render() {
