@@ -3,7 +3,7 @@ import firebase from 'react-native-firebase';
 export const onSwipedLeft = (cards) => async (idx) => {
   console.log('--SWIPE_LEFT--', idx);
 };
-export const onSwipedRight = (cards) => async (idx) => {
+export const onSwipedRight = (cards, onMatch) => async (idx) => {
   console.log('--SWIPE_RIGHT--', idx, cards);
   const this_uid = firebase.auth().currentUser.uid;
   const partnerKey = cards[idx].key;
@@ -16,6 +16,7 @@ export const onSwipedRight = (cards) => async (idx) => {
       const matched = partnerMatches[k];
       console.log('matched', k, matched);
       if (matched === this_uid) {
+        !!onMatch && onMatch();
         firebase.database().ref(`matches/${this_uid}/matched`).push(partnerKey);
         firebase.database().ref(`matches/${partnerKey}/matched`).push(this_uid);
       }
@@ -23,8 +24,9 @@ export const onSwipedRight = (cards) => async (idx) => {
   });
 
 };
-export const onSwipedTop = (cards) => async (idx) => {
+export const onSwipedTop = (cards, onMatch) => async (idx) => {
   console.log('--SWIPE_UP--', idx);
+    !!onMatch && onMatch();
   const this_uid = firebase.auth().currentUser.uid;
   const partnerKey = cards[idx].key;
   const userRef = firebase.database().ref(`matches/${this_uid}/matched`);
