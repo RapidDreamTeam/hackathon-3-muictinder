@@ -3,7 +3,7 @@ import {
   GraphRequest,
   GraphRequestManager,
 } from 'react-native-fbsdk';
-
+import _ from 'lodash'
 export const createProfileIfNotExist = (currentUser) => {
 
     const {additionalUserInfo: {profile: {first_name, last_name, name: display_name, id}}, user: { uid, photoURL }} = currentUser;
@@ -39,6 +39,15 @@ export const createProfileIfNotExist = (currentUser) => {
 
 export const getProfile = async (uid) => {
     return firebase.database().ref(`users/${uid}`).once('value')
+};
+
+export const updateUserInfo = (uid) => (payload) => {
+    const profileField = ["firstname", "lastname", "displayname", "bio"];
+    const nextState = _.pick(payload, profileField);
+
+    console.log(uid, payload, nextState);
+
+    // firebase.database().ref(`users/${uid}`).update(nextState);
 };
 
 export const onProfileChange = (uid, cb, cbb) => {

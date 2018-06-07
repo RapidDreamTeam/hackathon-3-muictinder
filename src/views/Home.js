@@ -86,7 +86,7 @@ class Home extends React.Component {
 
     render() {
         const { cards } = this.state;
-
+        console.log("user", this.props.context);
         if  (this.props.context.currentUser === null ){
             return (null)
         }
