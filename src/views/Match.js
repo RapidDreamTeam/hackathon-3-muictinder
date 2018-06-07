@@ -6,21 +6,27 @@ import firebase from "react-native-firebase";
 
 class MyMatch extends React.Component {
     state = {
-
+        matches: []
     };
 
     componentDidMount() {
-        firebase.database().ref('matches').once('value').then( snapshot => {
+        firebase.database().ref('').once('value').then( snapshot => {
             const uid = firebase.auth().currentUser.uid;
-            const users = snapshot.val();
-            let uids = [];
-            if (users.hasOwnProperty(uid)) {
-              const matches = users[uid]['matched'];
-              for (const k in matches) {
-                  const matchedUID = matches[k];
-                uids = uids.concat(matches[k]);
-              }
-              console.log("hi ", uids);
+            const store = snapshot.val();
+            let matchList = [];
+            if (store.hasOwnProperty('matches')) {
+                if (store.matches.hasOwnProperty(uid) && store.matches[uid].hasOwnProperty('matched')) {
+                    const matches = store.matches[uid]['matched'];
+                    for (const k in matches) {
+                        if (matches.hasOwnProperty(k)) {
+                            const matchedUID = matches[k];
+                            const {displayname, photo} = store.users[matchedUID];
+                            matchList = matchList.concat({key: matchedUID, displayname: displayname, photo: photo});
+                        }
+                    }
+                console.log("hi ", matchList);
+                }
+                this.setState({matches: matchList});
             }
         })
     }
@@ -30,22 +36,26 @@ class MyMatch extends React.Component {
             return (null)
         }
         return (
-          <Container>
-            <Header />
-            <Content>
-              <List>
-                <ListItem avatar>
-                  <Left>
-                    <Thumbnail source={{ uri: 'https://platform-lookaside.fbsbx.com/platform/profilepic/?asid=10211916806220903&height=200&width=200&ext=1528613743&hash=AeTvfL6iteXO51kZ' }} />
-                  </Left>
-                  <Body>
-                  <Text>Kumar Pratik</Text>
-                  <Text note>Doing what you like will always keep you happy . .</Text>
-                  </Body>
-                  <Right>
-                    <Text note></Text>
-                  </Right>
-                </ListItem>
+            <Container>
+              <Header />
+              <Content>
+                <List>
+                  {
+                      this.state.matches.map((match) =>
+                        <ListItem avatar>
+                            <Left>
+                                <Thumbnail source={{uri: match.photo}} />
+                            </Left>
+                            <Body>
+                            <Text>{match.displayname}</Text>
+                            <Text note>Your Daddy</Text>
+                            <Right>
+                              <Text note></Text>
+                            </Right>
+                            </Body>
+                        </ListItem>
+                      )
+                  }
               </List>
             </Content>
           </Container>
