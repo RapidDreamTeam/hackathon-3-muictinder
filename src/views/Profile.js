@@ -20,12 +20,7 @@ import {
 import {updateUserInfo} from '../api/profile/ProfileManagement';
 import Modal from 'react-native-modal';
 const {height} = Dimensions.get('window');
-
-const ClickableButton = ({onPress, children, ...rest}) => (
-    <Button block {...rest} style={{marginTop: "2%", marginBottom: "2%"}} onPress={onPress}>
-        <Text>{children}</Text>
-    </Button>
-);
+import {ClickableButton} from '../components'
 
 class EditModal extends React.Component {
     state = {

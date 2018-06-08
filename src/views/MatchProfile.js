@@ -1,18 +1,12 @@
 import React from "react";
 import {StyleSheet, Dimensions} from 'react-native'
-import {facebookLogout} from "../api/authentication/FacebookAuthentication";
 import compose from 'recompose/compose'
 import {withContext} from "../context/withContext";
 import {
     Container,
     Text,
-    Button,
     Header,
     Thumbnail,
-    Form,
-    Item,
-    Label,
-    Input,
     Content,
     Separator,
     ListItem
@@ -39,16 +33,13 @@ class Profile extends React.Component {
         return (
             <Container>
                 <Header noShadow style={styles.header}>
-                    <Text>My Profile</Text>
+                    <Text>Profile</Text>
                 </Header>
-
                 <Container style={styles.container}>
-
                     <Container style={styles.bioContainer}>
                         <Thumbnail circular style={{marginBottom: "8%" }} large source={{uri: photo}} />
                         <Text>{`${displayname || "-"}`}</Text>
                     </Container>
-
                     <Content>
                         <Separator>
                             <Text>First Name</Text>
@@ -73,7 +64,6 @@ class Profile extends React.Component {
                             <Text>{bio || "-"}</Text>
                         </ListItem>
                     </Content>
-
                 </Container>
             </Container>
         );

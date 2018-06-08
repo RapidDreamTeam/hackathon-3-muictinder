@@ -11,6 +11,8 @@ import {fetchCards} from "../api/matcher/Cards";
 import firebase from "react-native-firebase";
 import moment from "moment";
 
+import Modal from 'react-native-modal';
+import {ClickableButton} from '../components'
 
 const SwiperCards = ({cards, onSwipedLeft, onSwipedRight, onSwipedTop, renderCard, children, onSwipedAllCards, onSwiped, disableTopSwipe, ...rest}) => {
     return (
@@ -94,7 +96,8 @@ class Home extends React.Component {
         // cards: [
         //     'DO', 'MORE', 'OF', 'WHAT', 'MAKES', 'YOU', 'HAPPY'
         // ].map(ele => ({ text: ele })) ,
-        swipedAllCards: false
+        swipedAllCards: false,
+        modalVisible: false
     };
 
     onSwipedAllCards = () => {
@@ -106,21 +109,33 @@ class Home extends React.Component {
        console.log('current state',this.state.cards);
        this.resetSwipeUp(true);
     };
+    showModal = () => {
+        this.setState({modalVisible: true})
+    }
 
     render() {
-        const { cards } = this.state;
-        console.log("user", this.props.context);
+        const { cards,modalVisible } = this.state;
         if  (this.props.context.currentUser === null ){
             return (null)
         }
 
         return (
-            <Container >
-                <SwiperCards cards={cards} onSwipedLeft={onSwipedLeft(cards, null)}
-                             onSwipedRight={onSwipedRight(cards, null)} onSwipedTop={onSwipedTop(cards, null, this.onCardSwiped)}
-                             renderCard={Card} onSwipedAllCards={this.onSwipedAllCards} disableTopSwipe={!this.state.swipeUp}>
-                </SwiperCards>
+            <Container>
+                <Container>
+                    <SwiperCards cards={cards} onSwipedLeft={onSwipedLeft(cards)}
+                                 onSwipedRight={onSwipedRight(cards, this.showModal)} onSwipedTop={onSwipedTop(cards, this.showModal)}
+                                 renderCard={Card} onSwipedAllCards={this.onSwipedAllCards} disableTopSwipe={!this.state.swipeUp}>
+                    </SwiperCards>
+                </Container>
+
+                <Modal isVisible={modalVisible} onSwipe={() => this.setState({ isVisible: false })} swipeDirection="down" style={styles.bottomModal}>
+                    <View style={styles.modalContent}>
+                        <Text>It's a Match!</Text>
+                        <ClickableButton onPress={() => this.setState({modalVisible: false})}>Close</ClickableButton>
+                    </View>
+                </Modal>
             </Container>
+
         )
     }
 }
@@ -144,7 +159,19 @@ const styles = StyleSheet.create({
         textAlign: "center",
         fontSize: 50,
         backgroundColor: "transparent"
-    }
+    },
+    bottomModal: {
+        justifyContent: 'flex-end',
+        margin: 0,
+    },
+    modalContent: {
+        backgroundColor: 'white',
+        padding: 22,
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: 4,
+        borderColor: 'rgba(0, 0, 0, 0.1)',
+    },
 });
 
 
