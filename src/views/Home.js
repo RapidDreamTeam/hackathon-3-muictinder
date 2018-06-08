@@ -14,23 +14,27 @@ import moment from "moment";
 import Modal from 'react-native-modal';
 import {ClickableButton} from '../components'
 
-const SwiperCards = ({cards, onSwipedLeft, onSwipedRight, onSwipedTop, renderCard, children, onSwipedAllCards, onSwiped, disableTopSwipe, ...rest}) => {
+const SwiperCards = ({cards, index, onSwipedLeft, onSwipedRight, onSwipedTop, renderCard, children, onSwipedAllCards, onSwiped, disableTopSwipe, ...rest}) => {
     return (
-        <Swiper disableBottomSwipe cards={cards} renderCard={renderCard}
-                onSwipedLeft={onSwipedLeft} onSwipedRight={onSwipedRight}
-                onSwipedTop={onSwipedTop} stackSize={2}
+        <Swiper disableBottomSwipe
+                cards={cards}
+                renderCard={renderCard}
+                onSwipedLeft={onSwipedLeft}
+                onSwipedRight={onSwipedRight}
+                onSwipedTop={onSwipedTop}
+                stackSize={2}
                 onSwiped={onSwiped}
                 onSwipedAll={onSwipedAllCards}
-                disableTopSwipe={disableTopSwipe} >
+                disableTopSwipe={disableTopSwipe}
+                cardIndex={index}
+
+        >
             {children}
         </Swiper>
     )
 };
 
 SwiperCards.propTypes = {
-    cards: PropTypes.shape({
-        text: PropTypes.node.isRequired
-    }),
     onSwipedLeft: PropTypes.func.isRequired,
     onSwipedRight: PropTypes.func.isRequired,
     onSwipedTop: PropTypes.func.isRequired,
@@ -39,7 +43,7 @@ SwiperCards.propTypes = {
 };
 
 
-const Card = ({name, photo}, idx) => {
+const Card = ({name, photo}) => {
     return (<View style={styles.card}>
     <Image
         style={{width: 400, height: 400}}
@@ -54,15 +58,9 @@ Card.propTypes = {
 
 class Home extends React.Component {
 
-    static navigationOptions = ({ navigation }) => {
-        return {
-            title: "Minder",
-        };
-    };
-
     componentDidMount() {
         this.resetSwipeUp();
-       fetchCards().then((d) => {console.log('done', d); this.setState({cards: d})}).catch(e => console.log(e.msg));
+        fetchCards().then((d) => {console.log('done', d); this.setState({cards: d, cardIndex: 0})}).catch(e => console.log(e.msg));
     }
 
     resetSwipeUp(removeHead) {
@@ -87,7 +85,8 @@ class Home extends React.Component {
         swipeUp: true,
         swipedAllCards: false,
         modalVisible: false,
-        currentSwipe: null
+        currentSwipe: null,
+        cardIndex: 0
     };
 
     onSwipedAllCards = () => {
@@ -96,8 +95,13 @@ class Home extends React.Component {
     };
 
     onCardSwiped = () => {
-       console.log('current state',this.state.cards);
-       this.resetSwipeUp(true);
+       // console.log('current state', this.state.cards);
+       // this.resetSwipeUp(true);
+       this.setState((prevState) => ({
+           cardIndex: prevState.cardIndex + 1
+
+       }))
+
     };
     showModal = (id) => {
         console.log("iddd", id);
@@ -117,7 +121,7 @@ class Home extends React.Component {
     }
 
     render() {
-        const { cards,modalVisible } = this.state;
+        const { cards,modalVisible, cardIndex, swipeUp } = this.state;
         if  (this.props.context.currentUser === null ){
             return (null)
         }
@@ -125,9 +129,17 @@ class Home extends React.Component {
         return (
             <Container>
                 <Container>
-                    <SwiperCards cards={cards} onSwipedLeft={onSwipedLeft(cards)}
-                                 onSwipedRight={onSwipedRight(cards, this.showModal)} onSwipedTop={onSwipedTop(cards, this.showModal)}
-                                 renderCard={Card} onSwipedAllCards={this.onSwipedAllCards} disableTopSwipe={!this.state.swipeUp}>
+                    <SwiperCards cards={cards}
+                                 onSwipedLeft={onSwipedLeft(cards)}
+                                 onSwipedRight={onSwipedRight(cards, this.showModal)}
+                                 onSwipedTop={onSwipedTop(cards, this.showModal)}
+                                 renderCard={Card}
+                                 onSwiped={this.onCardSwiped}
+                                 onSwipedAllCards={this.onSwipedAllCards}
+                                 disableTopSwipe={!swipeUp}
+                                 index={cardIndex}
+
+                    >
                     </SwiperCards>
                 </Container>
 
