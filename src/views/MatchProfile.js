@@ -1,7 +1,6 @@
 import React from "react";
-import {StyleSheet, Dimensions} from 'react-native'
-import compose from 'recompose/compose'
-import {withContext} from "../context/withContext";
+import {StyleSheet, Dimensions, TouchableOpacity} from 'react-native'
+import {getProfile} from "../api/profile/ProfileManagement";
 import {
     Container,
     Text,
@@ -9,31 +8,49 @@ import {
     Thumbnail,
     Content,
     Separator,
-    ListItem
+    ListItem, Left, Right, Body
 } from 'native-base'
 const {height} = Dimensions.get('window');
 
-class Profile extends React.Component {
+class MatchProfile extends React.Component {
 
-    static navigationOptions = {
-        title: 'My Profile',
-        currentPage: "PROFILE"
-    };
+    state = {
+        profile: null
+    }
+
+    componentDidMount(){
+        const { uid, from } = this.props.navigation.state.params;
+        getProfile(uid)
+            .then(data => {
+                console.log(data.val());
+                this.setState({
+                    profile: data.val()
+                })
+            })
+    }
+
 
     render() {
-        const { currentUser: { photo, firstname, lastname, bio, displayname, uid } } = this.props.context;
-
-        if  (this.props.context.currentUser === null || uid === null) {
-            console.log("should not be null", uid);
+        if (this.state.profile === null){
             return (null)
-        }else {
-            console.log("its not null")
         }
 
+        const { photo, firstname, lastname, bio, displayname } = this.state.profile;
+        const { from } = this.props.navigation.state.params;
         return (
-            <Container>
+            <Container style={{backgroundColor: "white"}}>
                 <Header noShadow style={styles.header}>
-                    <Text>Profile</Text>
+                    <Left>
+                        <TouchableOpacity onPress={() => this.props.navigation.navigate(from)}>
+                            <Text>Back</Text>
+                        </TouchableOpacity>
+                    </Left>
+                    <Body>
+                        <Text>Match</Text>
+                    </Body>
+
+                    <Right>
+                    </Right>
                 </Header>
                 <Container style={styles.container}>
                     <Container style={styles.bioContainer}>
@@ -111,4 +128,4 @@ const styles = StyleSheet.create({
 
 });
 
-export default compose(withContext)(Profile)
+export default MatchProfile;

@@ -9,13 +9,14 @@ const ProfileRoute = createStackNavigator(
     MatchProfile
   },
   {
-    initialRouteName: "MatchProfile"
+    initialRouteName: "MatchProfile",
+    headerMode: 'none'
   }
 );
 
 const AuthenticatedRoute  = createBottomTabNavigator(
     {
-        Home, Profile , Match
+        Home, Profile , Match, ProfileRoute
     },
     {
         initialRouteName: "Home",

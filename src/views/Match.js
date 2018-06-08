@@ -24,7 +24,6 @@ class MyMatch extends React.Component {
                             matchList = matchList.concat({key: matchedUID, displayname: displayname, photo: photo, bio});
                         }
                     }
-                console.log("hi ", matchList);
                 }
                 this.setState({matches: matchList});
             }
@@ -37,22 +36,28 @@ class MyMatch extends React.Component {
         }
         return (
             <Container>
-              <Header />
+                <Header style={{backgroundColor: 'white'}}>
+                    <Left>
+                    </Left>
+                    <Body>
+                        <Text>My Match</Text>
+                    </Body>
+                    <Right/>
+                </Header>
               <Content>
                 <List>
                   {
                       this.state.matches.map((match) =>
-                        <ListItem avatar>
+                        <ListItem avatar key={match.key} onPress={() => this.props.navigation.navigate("MatchProfile", {uid: match.key, from: "Match"})}>
                             <Left>
                                 <Thumbnail source={{uri: match.photo}} />
                             </Left>
                             <Body>
-                            <Text>{match.displayname}</Text>
-                            <Text note>{match.bio.toString().length > 30 ? match.bio.toString().substring(0, 30) + "....." : match.bio}</Text>
-                            <Right>
-                              <Text note></Text>
-                            </Right>
+                                <Text>{match.displayname}</Text>
+                                <Text note>{match.bio.toString().length > 30 ? match.bio.toString().substring(0, 30) + "....." : match.bio}</Text>
                             </Body>
+                            <Right>
+                            </Right>
                         </ListItem>
                       )
                   }

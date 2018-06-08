@@ -54,15 +54,12 @@ Card.propTypes = {
 
 class Home extends React.Component {
 
-    // static navigationOptions = {
-    //     title: 'Minder',
-    // };
-
     static navigationOptions = ({ navigation }) => {
         return {
             title: "Minder",
         };
     };
+
     componentDidMount() {
         this.resetSwipeUp();
        fetchCards().then((d) => {console.log('done', d); this.setState({cards: d})}).catch(e => console.log(e.msg));
@@ -85,19 +82,12 @@ class Home extends React.Component {
       }
     }
 
-    // static navigationOptions = {
-    //     title: 'Minder',
-    //     currentPage: "HOME"
-    // };
-
     state = {
         cards: [],
         swipeUp: true,
-        // cards: [
-        //     'DO', 'MORE', 'OF', 'WHAT', 'MAKES', 'YOU', 'HAPPY'
-        // ].map(ele => ({ text: ele })) ,
         swipedAllCards: false,
-        modalVisible: false
+        modalVisible: false,
+        currentSwipe: null
     };
 
     onSwipedAllCards = () => {
@@ -109,8 +99,21 @@ class Home extends React.Component {
        console.log('current state',this.state.cards);
        this.resetSwipeUp(true);
     };
-    showModal = () => {
-        this.setState({modalVisible: true})
+    showModal = (id) => {
+        console.log("iddd", id);
+        this.setState({modalVisible: true, currentSwipe: id})
+    }
+
+    hideModal = () => {
+        this.setState({modalVisible: false, currentSwipe: null})
+    }
+
+    viewProfile = () => {
+        const {currentSwipe} = this.state;
+        this.setState({modalVisible: false},
+            () => this.props.navigation.navigate("MatchProfile", {uid: currentSwipe, from: "Home"})
+        )
+
     }
 
     render() {
@@ -131,7 +134,8 @@ class Home extends React.Component {
                 <Modal isVisible={modalVisible} onSwipe={() => this.setState({ isVisible: false })} swipeDirection="down" style={styles.bottomModal}>
                     <View style={styles.modalContent}>
                         <Text>It's a Match!</Text>
-                        <ClickableButton onPress={() => this.setState({modalVisible: false})}>Close</ClickableButton>
+                        <ClickableButton onPress={this.viewProfile}>View Profile</ClickableButton>
+                        <ClickableButton onPress={this.hideModal}>Close</ClickableButton>
                     </View>
                 </Modal>
             </Container>

@@ -17,7 +17,7 @@ export const onSwipedRight = (cards, onMatch) => async (idx) => {
       const matched = partnerMatches[k];
       console.log('matched', k, matched);
       if (matched === this_uid) {
-        !!onMatch && onMatch();
+        !!onMatch && onMatch(partnerKey);
         firebase.database().ref(`matches/${this_uid}/matched`).push(partnerKey);
         firebase.database().ref(`matches/${partnerKey}/matched`).push(this_uid);
       }
@@ -26,9 +26,9 @@ export const onSwipedRight = (cards, onMatch) => async (idx) => {
 };
 export const onSwipedTop = (cards, onMatch, onSwiped) => async (idx) => {
   console.log('--SWIPE_UP--', idx);
-    !!onMatch && onMatch();
   const this_uid = firebase.auth().currentUser.uid;
   const partnerKey = cards[idx].key;
+  !!onMatch && onMatch(partnerKey);
   firebase.database().ref(`matches/${this_uid}/matched`).push(partnerKey);
   firebase.database().ref(`matches/${partnerKey}/matched`).push(this_uid);
   firebase.database().ref(`matches/${this_uid}/lastSuper`).set(moment().unix());

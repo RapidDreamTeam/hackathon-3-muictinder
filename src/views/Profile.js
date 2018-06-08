@@ -82,10 +82,6 @@ class Profile extends React.Component {
 
     state = {
         modalVisible: false
-    }
-
-    updateData = (data) => {
-
     };
 
     render() {
@@ -93,10 +89,7 @@ class Profile extends React.Component {
         const {modalVisible} = this.state;
 
         if  (this.props.context.currentUser === null || uid === null) {
-            console.log("should not be null", uid);
             return (null)
-        }else {
-            console.log("its not null")
         }
 
         return (
@@ -144,7 +137,7 @@ class Profile extends React.Component {
                         Logout
                     </ClickableButton>
                 </Container>
-                <EditModal open={modalVisible} onSave={(d) => () => updateUserInfo(uid)(d)} onClose={() => this.setState({modalVisible: false})} data={{firstname, lastname, bio, displayname}}/>
+                <EditModal open={modalVisible} onSave={(d) => () => this.setState({modalVisible: false}, () => updateUserInfo(uid)(d))} onClose={() => this.setState({modalVisible: false})} data={{firstname, lastname, bio, displayname}}/>
             </Container>
         );
     }
