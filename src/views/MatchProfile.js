@@ -117,6 +117,6 @@ const styles = StyleSheet.create({
         marginBottom: height * 0.01,
     }
 
-})
+});
 
 export default compose(withContext)(Profile)
