@@ -17,15 +17,7 @@ import {
     Separator,
     ListItem
 } from 'native-base'
-import {updateUserInfo} from '../api/profile/ProfileManagement';
-import Modal from 'react-native-modal';
 const {height} = Dimensions.get('window');
-
-const ClickableButton = ({onPress, children, ...rest}) => (
-    <Button block {...rest} style={{marginTop: "2%", marginBottom: "2%"}} onPress={onPress}>
-        <Text>{children}</Text>
-    </Button>
-);
 
 class Profile extends React.Component {
 
@@ -34,16 +26,8 @@ class Profile extends React.Component {
         currentPage: "PROFILE"
     };
 
-    state = {
-    };
-
-    updateData = (data) => {
-
-    };
-
     render() {
         const { currentUser: { photo, firstname, lastname, bio, displayname, uid } } = this.props.context;
-        const {modalVisible} = this.state;
 
         if  (this.props.context.currentUser === null || uid === null) {
             console.log("should not be null", uid);
