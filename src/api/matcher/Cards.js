@@ -23,16 +23,18 @@ export const fetchCards = async () => {
       else {
         console.log('else');
         if (matches.hasOwnProperty(k)) {
-          console.log(matches[k]);
+          console.log('matches', matches[k]);
           if (matches[k].hasOwnProperty('swipeRight')) {
+            console.log('right here');
             for (const key in matches[k]['swipeRight']) {
               console.log('right', matches[k]['swipeRight'][key]);
               filter = filter.concat(matches[k]['swipeRight'][key]);
             }
           }
           if (matches[k].hasOwnProperty('matched')) {
+            console.log('matched here');
             for (const key in matches[k]['matched']) {
-              console.log('matched', matches[k]['swipeRight'][key]);
+              console.log('matched', matches[k]['matched'][key]);
               filter = filter.concat(matches[k]['matched'][key]);
             }
           }

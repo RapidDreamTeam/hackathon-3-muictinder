@@ -8,16 +8,20 @@ import { compose } from "recompose";
 import {Container} from 'native-base'
 import { onSwipedLeft, onSwipedRight, onSwipedTop } from "../api/matcher/SwipeAction";
 import {fetchCards} from "../api/matcher/Cards";
+import firebase from "react-native-firebase";
+import moment from "moment";
+
 import Modal from 'react-native-modal';
 import {ClickableButton} from '../components'
 
-const SwiperCards = ({cards, onSwipedLeft, onSwipedRight, onSwipedTop, renderCard, children, onSwipedAllCards, onSwiped,...rest}) => {
+const SwiperCards = ({cards, onSwipedLeft, onSwipedRight, onSwipedTop, renderCard, children, onSwipedAllCards, onSwiped, disableTopSwipe, ...rest}) => {
     return (
         <Swiper disableBottomSwipe cards={cards} renderCard={renderCard}
                 onSwipedLeft={onSwipedLeft} onSwipedRight={onSwipedRight}
                 onSwipedTop={onSwipedTop} stackSize={2}
                 onSwiped={onSwiped}
-                onSwipedAll={onSwipedAllCards} >
+                onSwipedAll={onSwipedAllCards}
+                disableTopSwipe={disableTopSwipe} >
             {children}
         </Swiper>
     )
@@ -39,12 +43,8 @@ const Card = ({name, photo}, idx) => {
     return (<View style={styles.card}>
     <Image
         style={{width: 400, height: 400}}
-        source={{uri: photo}}
-        />
-        {/*<Image*/}
-        {/*style={{width: 100, height: 100}}*/}
-        {/*source={{uri: "https://www.jqueryscript.net/images/Simplest-Responsive-jQuery-Image-Lightbox-Plugin-simple-lightbox.jpg"}}/>*/}
-        <Text style={styles.text}>{name} - {idx}</Text>
+        source={{uri: photo}} />
+    <Text style={styles.text}>{name}</Text>
     </View>);
 };
 
@@ -64,7 +64,25 @@ class Home extends React.Component {
         };
     };
     componentDidMount() {
-        fetchCards().then((d) => console.log('done', this.setState({cards: d}))).catch(e => console.log(e.msg));
+        this.resetSwipeUp();
+       fetchCards().then((d) => {console.log('done', d); this.setState({cards: d})}).catch(e => console.log(e.msg));
+    }
+
+    resetSwipeUp(removeHead) {
+      const this_uid = firebase.auth().currentUser.uid;
+      if (removeHead) {
+        let cards = this.state.cards;
+        cards = _.tail(cards);
+        firebase.database().ref(`matches/${this_uid}/lastSuper`).once('value').then(e => {
+          console.log('last_super', e.val(), cards);
+          this.setState({cards: cards, swipeUp: ((e.val() + 86400) < moment().unix())})
+        });
+      } else {
+        firebase.database().ref(`matches/${this_uid}/lastSuper`).once('value').then(e => {
+          console.log('last_super', e.val());
+          this.setState({swipeUp: ((e.val() + 86400) < moment().unix())})
+        });
+      }
     }
 
     // static navigationOptions = {
@@ -74,6 +92,7 @@ class Home extends React.Component {
 
     state = {
         cards: [],
+        swipeUp: true,
         // cards: [
         //     'DO', 'MORE', 'OF', 'WHAT', 'MAKES', 'YOU', 'HAPPY'
         // ].map(ele => ({ text: ele })) ,
@@ -86,6 +105,10 @@ class Home extends React.Component {
         fetchCards().then((d) => console.log('done', this.setState({cards: d}))).catch(e => console.log(e.msg));
     };
 
+    onCardSwiped = () => {
+       console.log('current state',this.state.cards);
+       this.resetSwipeUp(true);
+    };
     showModal = () => {
         this.setState({modalVisible: true})
     }
@@ -101,7 +124,7 @@ class Home extends React.Component {
                 <Container>
                     <SwiperCards cards={cards} onSwipedLeft={onSwipedLeft(cards)}
                                  onSwipedRight={onSwipedRight(cards, this.showModal)} onSwipedTop={onSwipedTop(cards, this.showModal)}
-                                 renderCard={Card} onSwipedAllCards={this.onSwipedAllCards}>
+                                 renderCard={Card} onSwipedAllCards={this.onSwipedAllCards} disableTopSwipe={!this.state.swipeUp}>
                     </SwiperCards>
                 </Container>
 

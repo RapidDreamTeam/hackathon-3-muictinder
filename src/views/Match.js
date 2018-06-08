@@ -20,8 +20,8 @@ class MyMatch extends React.Component {
                     for (const k in matches) {
                         if (matches.hasOwnProperty(k)) {
                             const matchedUID = matches[k];
-                            const {displayname, photo} = store.users[matchedUID];
-                            matchList = matchList.concat({key: matchedUID, displayname: displayname, photo: photo});
+                            const {displayname, photo, bio} = store.users[matchedUID];
+                            matchList = matchList.concat({key: matchedUID, displayname: displayname, photo: photo, bio});
                         }
                     }
                 console.log("hi ", matchList);
@@ -48,7 +48,7 @@ class MyMatch extends React.Component {
                             </Left>
                             <Body>
                             <Text>{match.displayname}</Text>
-                            <Text note>Your Daddy</Text>
+                            <Text note>{match.bio.toString().length > 30 ? match.bio.toString().substring(0, 30) + "....." : match.bio}</Text>
                             <Right>
                               <Text note></Text>
                             </Right>

@@ -1,4 +1,5 @@
 import firebase from 'react-native-firebase';
+import moment from 'moment';
 
 export const onSwipedLeft = (cards) => async (idx) => {
   console.log('--SWIPE_LEFT--', idx);
@@ -22,15 +23,14 @@ export const onSwipedRight = (cards, onMatch) => async (idx) => {
       }
     }
   });
-
 };
-export const onSwipedTop = (cards, onMatch) => async (idx) => {
+export const onSwipedTop = (cards, onMatch, onSwiped) => async (idx) => {
   console.log('--SWIPE_UP--', idx);
     !!onMatch && onMatch();
   const this_uid = firebase.auth().currentUser.uid;
   const partnerKey = cards[idx].key;
-  const userRef = firebase.database().ref(`matches/${this_uid}/matched`);
-  userRef.push(partnerKey);
-  const partnerRef = firebase.database().ref(`matches/${partnerKey}/matched`);
-  partnerRef.push(this_uid);
+  firebase.database().ref(`matches/${this_uid}/matched`).push(partnerKey);
+  firebase.database().ref(`matches/${partnerKey}/matched`).push(this_uid);
+  firebase.database().ref(`matches/${this_uid}/lastSuper`).set(moment().unix());
+  !!onSwiped && onSwiped();
 };
