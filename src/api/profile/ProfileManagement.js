@@ -6,6 +6,7 @@ import {
 import _ from 'lodash'
 export const createProfileIfNotExist = (currentUser) => {
 
+    console.log(" createProfileIfNotExist")
     const {additionalUserInfo: {profile: {first_name, last_name, name: display_name, id}}, user: { uid, photoURL }} = currentUser;
 
     const userRef = firebase.database().ref(`users/${uid}`);

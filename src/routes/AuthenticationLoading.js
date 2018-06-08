@@ -14,9 +14,8 @@ class AuthenticationLoading extends React.Component {
 
     componentDidMount() {
         onAuthStateChanged((user) => {
+            console.log("auth state change")
             if (!!user){
-
-                // Concurrency bug, if slow internet, Maybe
                 onProfileChange(user.uid, (snapshot) => {
                     this.props.setContext({
                         currentUser: {...snapshot.val(), uid: snapshot.key},

@@ -17,8 +17,10 @@ class Login extends Component<Props> {
     };
 
   facebookLoginHandler = async () => {
+      console.log("Loging in")
       try {
           const currentUser = await facebookLogin();
+          console.log("Loging as:", currentUser);
 
           this.props.setContext({
               currentUser: currentUser,
@@ -29,6 +31,7 @@ class Login extends Component<Props> {
               createProfileIfNotExist(currentUser);
           })
       } catch (e) {
+          console.log(e);
           this.props.setContext({
               currentUser: null,
               authenticated: false,
@@ -56,4 +59,4 @@ const styles = StyleSheet.create({
     container: {
         backgroundColor: "white"
     }
-})
+});

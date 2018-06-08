@@ -6,7 +6,6 @@ import {withContext} from "../context/withContext";
 import {
     Container,
     Text,
-    Button,
     Header,
     Thumbnail,
     Form,

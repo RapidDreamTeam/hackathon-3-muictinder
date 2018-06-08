@@ -1,4 +1,4 @@
-import { AccessToken, LoginManager } from 'react-native-fbsdk';
+import { AccessToken, LoginManager,  } from 'react-native-fbsdk';
 import firebase from 'react-native-firebase'
 
 
@@ -16,10 +16,12 @@ export const facebookLogin = async (permissions=['public_profile', 'email']) => 
         throw new Error('Something went wrong obtaining the users access token');
     }
     const credential = firebase.auth.FacebookAuthProvider.credential(data.accessToken);
+    console.log("credentials", credential);
     return firebase.auth().signInAndRetrieveDataWithCredential(credential);
 };
 
 export const facebookLogout = async () => {
+    LoginManager.logOut();
     return firebase.auth().signOut();
 };
 
