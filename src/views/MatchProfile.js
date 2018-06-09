@@ -19,14 +19,19 @@ class MatchProfile extends React.Component {
     }
 
     componentDidMount(){
-        const { uid, from } = this.props.navigation.state.params;
-        getProfile(uid)
-            .then(data => {
-                console.log(data.val());
-                this.setState({
-                    profile: data.val()
+        // this.props.navigation.addListener('focus', (status: boolean) => {
+            // do something;
+            const { uid } = this.props.navigation.state.params;
+            console.log("view", uid);
+            getProfile(uid)
+                .then(data => {
+                    console.log(data.val());
+                    this.setState({
+                        profile: data.val()
+                    })
                 })
-            })
+        // });
+
     }
 
 
@@ -41,7 +46,7 @@ class MatchProfile extends React.Component {
             <Container style={{backgroundColor: "white"}}>
                 <Header noShadow style={styles.header}>
                     <Left>
-                        <TouchableOpacity onPress={() => this.props.navigation.navigate(from)}>
+                        <TouchableOpacity onPress={() => this.props.navigation.pop()}>
                             <Text>Back</Text>
                         </TouchableOpacity>
                     </Left>

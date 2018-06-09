@@ -6,17 +6,19 @@ import {createSwitchNavigator, createStackNavigator, createBottomTabNavigator} f
 
 const ProfileRoute = createStackNavigator(
   {
-    MatchProfile
+      MatchProfile,
+      Match
+
   },
   {
-    initialRouteName: "MatchProfile",
+    initialRouteName: "Match",
     headerMode: 'none'
   }
 );
 
 const AuthenticatedRoute  = createBottomTabNavigator(
     {
-        Home, Profile , Match, ProfileRoute
+        Home,Profile, ProfileRoute
     },
     {
         initialRouteName: "Home",

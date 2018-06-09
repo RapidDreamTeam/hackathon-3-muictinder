@@ -10,6 +10,7 @@ import compose from 'recompose/compose'
 class ButtonNavigationBar extends React.Component {
     render() {
         const {navigate, state: { routes, index }} = this.props.navigation;
+        console.log("routename", routes, routes[index].routeName)
         return (
             <Footer>
                 <FooterTab>
@@ -31,7 +32,7 @@ class ButtonNavigationBar extends React.Component {
                     </Button>
                     <Button
                         vertical
-                        active={ routes[index].routeName ===  "Match" }
+                        active={ routes[index].routeName ===  "ProfileRoute" }
                         onPress={() => navigate("Match")}
                     >
                         {/*<Icon name="headset"/>*/}

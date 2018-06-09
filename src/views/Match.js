@@ -4,6 +4,8 @@ import { Container, Header, Content, List, ListItem, Left, Body, Right, Thumbnai
 import compose from "recompose/compose";
 import firebase from "react-native-firebase";
 
+import {subscribeMyMatch, unsubscribeMyMatch} from "../api/matcher/Match";
+
 class MyMatch extends React.Component {
     state = {
         matches: []
@@ -28,6 +30,20 @@ class MyMatch extends React.Component {
                 this.setState({matches: matchList});
             }
         })
+
+        // const {uid} = this.props.context.currentUser;
+        //
+        // subscribeMyMatch(uid, (snapshot) => {
+        //     const {val} = snapshot;
+        //
+        //     this.setState({
+        //         matches: {
+        //
+        //         }
+        //     })
+        // })
+        //
+
     }
 
     render() {
