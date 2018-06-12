@@ -19,7 +19,7 @@ export const fetchCards = async () => {
       console.log(e);
       console.log('user: ', k);
       if (k !== uid)
-        cards = cards.concat({ key: k, name: e.displayname, photo: e.photo });
+        cards = cards.concat({ key: k, name: e.displayname, uid: e.facebookid });
       else {
         console.log('else');
         if (matches.hasOwnProperty(k)) {
