@@ -1,5 +1,5 @@
 import React from "react";
-import {StyleSheet, Dimensions, TouchableOpacity, Linking} from 'react-native'
+import {StyleSheet, Dimensions, TouchableOpacity, Linking, Alert} from 'react-native'
 import {getProfile} from "../api/profile/ProfileManagement";
 import {
     Container,
@@ -34,9 +34,22 @@ class MatchProfile extends React.Component {
 
     }
 
+    notice = (fbid) => () => {
+        Alert.alert(
+            'Notice',
+            `Facebook have banned profile page redirection on mobile platform. To view this user\'s profile this link on your computer facebook.com/${fbid}`,
+            [
+                {text: 'OK', onPress: this.linkFacebook(fbid)},
+            ],
+            { cancelable: false }
+        )
+    }
+
     linkFacebook = (fbid) => () =>{
         const fbappurl  = `fb://profile/${fbid}`;
-        const fbweburl = `https://www.facebook.com/profile.php?id=${fbid}`;
+        const fbweburl = `https://www.facebook.com/${fbid}`;
+
+
 
         Linking.canOpenURL(fbappurl).then(supported => {
             if (!supported) {
@@ -102,7 +115,7 @@ class MatchProfile extends React.Component {
                             <Text>{bio || "-"}</Text>
                         </ListItem>
                         <ListItem>
-                            <TouchableOpacity onPress={this.linkFacebook(facebookid)}>
+                            <TouchableOpacity onPress={this.notice(facebookid)}>
                                 <Text>Open Profile</Text>
                             </TouchableOpacity>
                         </ListItem>
