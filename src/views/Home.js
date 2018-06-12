@@ -1,11 +1,11 @@
 import React from 'react';
-import {View, Text, Image} from 'react-native'
+import {View, Text, Image, Vibration} from 'react-native'
 import Swiper from 'react-native-deck-swiper'
 import {StyleSheet} from "react-native";
 import PropTypes from "prop-types"
 import {withContext} from "../context/withContext";
 import { compose } from "recompose";
-import {Container} from 'native-base'
+import {Container, Thumbnail} from 'native-base'
 import { onSwipedLeft, onSwipedRight, onSwipedTop } from "../api/matcher/SwipeAction";
 import {fetchCards} from "../api/matcher/Cards";
 import firebase from "react-native-firebase";
@@ -43,11 +43,12 @@ SwiperCards.propTypes = {
 };
 
 
-const Card = ({name, photo}) => {
+const Card = ({name, uid}) => {
     return (<View style={styles.card}>
-    <Image
-        style={{width: 400, height: 400}}
-        source={{uri: photo}} />
+        <Thumbnail style={{marginBottom: "8%", width: 300, height: 300}} large source={{uri: `https://graph.facebook.com/${uid}/picture?type=large`}} />
+    {/*<Image*/}
+        {/*style={{width: 400, height: 400}}*/}
+        {/*source={{uri: photo}} />*/}
     <Text style={styles.text}>{name}</Text>
     </View>);
 };
@@ -103,14 +104,18 @@ class Home extends React.Component {
        }))
 
     };
+
     showModal = (id) => {
         console.log("iddd", id);
-        this.setState({modalVisible: true, currentSwipe: id})
-    }
+        this.setState({modalVisible: true, currentSwipe: id}, () => {
+            Vibration.vibrate([0, 500, 100, 500])
+        })
+
+    };
 
     hideModal = () => {
         this.setState({modalVisible: false, currentSwipe: null})
-    }
+    };
 
     viewProfile = () => {
         const {currentSwipe} = this.state;
@@ -118,7 +123,7 @@ class Home extends React.Component {
             () => this.props.navigation.navigate("MatchProfile", {uid: currentSwipe, from: "Home"})
         )
 
-    }
+    };
 
     render() {
         const { cards,modalVisible, cardIndex, swipeUp } = this.state;
