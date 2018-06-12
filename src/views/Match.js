@@ -11,39 +11,78 @@ class MyMatch extends React.Component {
         matches: []
     };
 
+    loadMatches = () => {
+
+      firebase.database().ref('').once('value').then( snapshot => {
+          const uid = firebase.auth().currentUser.uid;
+          const store = snapshot.val();
+          let matchList = [];
+          if (store.hasOwnProperty('matches')) {
+              if (store.matches.hasOwnProperty(uid) && store.matches[uid].hasOwnProperty('matched')) {
+                  const matches = store.matches[uid]['matched'];
+                  for (const k in matches) {
+                      if (matches.hasOwnProperty(k)) {
+                          const matchedUID = matches[k];
+                          const {displayname, photo, bio} = store.users[matchedUID];
+                          matchList = matchList.concat({key: matchedUID, displayname: displayname, photo: photo, bio});
+                      }
+                  }
+              }
+              this.setState({matches: matchList});
+          }
+      });
+
+
+
+      //   console.log('loadmatches');
+      //   const uid = firebase.auth().currentUser.uid;
+      //   const store = snapshot.val();
+      //   console.log(store);
+      //   let matchList = [];
+      //   if (store.hasOwnProperty('matches')) {
+      //       if (store.matches.hasOwnProperty(uid) && store.matches[uid].hasOwnProperty('matched')) {
+      //           const matches = store.matches[uid]['matched'];
+      //           for (const k in matches) {
+      //               if (matches.hasOwnProperty(k)) {
+      //                   const matchedUID = matches[k];
+      //                   const {displayname, photo, bio} = store.users[matchedUID];
+      //                   matchList = matchList.concat({key: matchedUID, displayname: displayname, photo: photo, bio});
+      //               }
+      //           }
+      //       }
+      //       console.log('matchlist', matchList);
+      //       this.setState({matches: matchList});
+      // }
+    };
+
     componentDidMount() {
-        firebase.database().ref('').once('value').then( snapshot => {
-            const uid = firebase.auth().currentUser.uid;
-            const store = snapshot.val();
-            let matchList = [];
-            if (store.hasOwnProperty('matches')) {
-                if (store.matches.hasOwnProperty(uid) && store.matches[uid].hasOwnProperty('matched')) {
-                    const matches = store.matches[uid]['matched'];
-                    for (const k in matches) {
-                        if (matches.hasOwnProperty(k)) {
-                            const matchedUID = matches[k];
-                            const {displayname, photo, bio} = store.users[matchedUID];
-                            matchList = matchList.concat({key: matchedUID, displayname: displayname, photo: photo, bio});
-                        }
-                    }
-                }
-                this.setState({matches: matchList});
-            }
-        })
-
-        // const {uid} = this.props.context.currentUser;
-        //
-        // subscribeMyMatch(uid, (snapshot) => {
-        //     const {val} = snapshot;
-        //
-        //     this.setState({
-        //         matches: {
-        //
+        // firebase.database().ref('').once('value').then( snapshot => {
+        //     const uid = firebase.auth().currentUser.uid;
+        //     const store = snapshot.val();
+        //     let matchList = [];
+        //     if (store.hasOwnProperty('matches')) {
+        //         if (store.matches.hasOwnProperty(uid) && store.matches[uid].hasOwnProperty('matched')) {
+        //             const matches = store.matches[uid]['matched'];
+        //             for (const k in matches) {
+        //                 if (matches.hasOwnProperty(k)) {
+        //                     const matchedUID = matches[k];
+        //                     const {displayname, photo, bio} = store.users[matchedUID];
+        //                     matchList = matchList.concat({key: matchedUID, displayname: displayname, photo: photo, bio});
+        //                 }
+        //             }
         //         }
-        //     })
+        //         this.setState({matches: matchList});
+        //     }
         // })
-        //
 
+        const {uid} = this.props.context.currentUser;
+
+        subscribeMyMatch(uid, this.loadMatches).catch( e => console.log("subscribe failed", e));
+    }
+
+    componentWillUnmount() {
+        const {uid} = this.props.context.currentUser;
+        unsubscribeMyMatch(uid).catch( console.log("unsubscribe failed"));
     }
 
     render() {
