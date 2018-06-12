@@ -1,5 +1,5 @@
 import React from "react";
-import {StyleSheet, Dimensions, TouchableOpacity} from 'react-native'
+import {StyleSheet, Dimensions, TouchableOpacity, Linking} from 'react-native'
 import {getProfile} from "../api/profile/ProfileManagement";
 import {
     Container,
@@ -34,13 +34,29 @@ class MatchProfile extends React.Component {
 
     }
 
+    linkFacebook = (fbid) => () =>{
+        const fbappurl  = `fb://profile/${fbid}`;
+        const fbweburl = `https://www.facebook.com/profile.php?id=${fbid}`;
+
+        Linking.canOpenURL(fbappurl).then(supported => {
+            if (!supported) {
+                console.log("Opening in browser", fbweburl);
+                return Linking.openURL(fbweburl);
+            } else {
+                console.log("Opening in native app", fbappurl);
+
+                return Linking.openURL(fbappurl);
+            }
+        }).catch(err => console.error('An error occurred', err));
+    };
+
 
     render() {
         if (this.state.profile === null){
             return (null)
         }
 
-        const { photo, firstname, lastname, bio, displayname } = this.state.profile;
+        const { photo, firstname, lastname, bio, displayname, facebookid} = this.state.profile;
         const { from } = this.props.navigation.state.params;
         return (
             <Container style={{backgroundColor: "white"}}>
@@ -84,6 +100,11 @@ class MatchProfile extends React.Component {
                         </Separator>
                         <ListItem>
                             <Text>{bio || "-"}</Text>
+                        </ListItem>
+                        <ListItem>
+                            <TouchableOpacity onPress={this.linkFacebook(facebookid)}>
+                                <Text>Open Profile</Text>
+                            </TouchableOpacity>
                         </ListItem>
                     </Content>
                 </Container>
