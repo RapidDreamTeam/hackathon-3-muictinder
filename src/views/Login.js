@@ -17,7 +17,7 @@ class Login extends Component<Props> {
     };
 
   facebookLoginHandler = async () => {
-      console.log("Loging in")
+      console.log("Loging in");
       try {
           const currentUser = await facebookLogin();
           console.log("Loging as:", currentUser);

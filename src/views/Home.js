@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, Image} from 'react-native'
+import {View, Text, Image, Vibration} from 'react-native'
 import Swiper from 'react-native-deck-swiper'
 import {StyleSheet} from "react-native";
 import PropTypes from "prop-types"
@@ -103,14 +103,18 @@ class Home extends React.Component {
        }))
 
     };
+
     showModal = (id) => {
         console.log("iddd", id);
-        this.setState({modalVisible: true, currentSwipe: id})
-    }
+        this.setState({modalVisible: true, currentSwipe: id}, () => {
+            Vibration.vibrate([0, 500, 100, 500])
+        })
+
+    };
 
     hideModal = () => {
         this.setState({modalVisible: false, currentSwipe: null})
-    }
+    };
 
     viewProfile = () => {
         const {currentSwipe} = this.state;
@@ -118,7 +122,7 @@ class Home extends React.Component {
             () => this.props.navigation.navigate("MatchProfile", {uid: currentSwipe, from: "Home"})
         )
 
-    }
+    };
 
     render() {
         const { cards,modalVisible, cardIndex, swipeUp } = this.state;

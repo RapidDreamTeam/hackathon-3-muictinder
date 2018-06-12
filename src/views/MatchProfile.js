@@ -16,7 +16,7 @@ class MatchProfile extends React.Component {
 
     state = {
         profile: null
-    }
+    };
 
     componentDidMount(){
         // this.props.navigation.addListener('focus', (status: boolean) => {
